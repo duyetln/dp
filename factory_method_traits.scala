@@ -17,9 +17,9 @@ class Maze(val name : String) {
   protected val walls = new ListBuffer[Wall]()
 }
 
-class BombedRoom extends Room("Bombed Room")
-class BombedWall extends Wall("Bombed Wall")
-class BombedMaze extends Maze("Bombed Maze")
+class HauntedRoom extends Room("Haunted Room")
+class HauntedWall extends Wall("Haunted Wall")
+class HauntedMaze extends Maze("Haunted Maze")
 
 class EnchantedRoom extends Room("Enchanted Room")
 class EnchantedWall extends Wall("Enchanted Wall")
@@ -40,17 +40,21 @@ trait MazeGame[M <: Maze, R <: Room, W <: Wall]  {
   }
 }
 
-class BombedMazeGame extends MazeGame[BombedMaze, BombedRoom, BombedWall] {
-  def makeMaze : BombedMaze = new BombedMaze
-  def makeRoom : BombedRoom = new BombedRoom
-  def makeWall : BombedWall = new BombedWall
+class HauntedMazeGame extends MazeGame[Maze, HauntedRoom, Wall] {
+  val allowHolySpells = true
+  def makeMaze : Maze = new Maze("Basic Maze")
+  def makeWall : Wall = new Wall("Basic Wall")
+
+  def makeRoom : HauntedRoom = new HauntedRoom
 }
 
-class EnchantedMazeGame extends MazeGame[EnchantedMaze, EnchantedRoom, EnchantedWall] {
-  def makeMaze : EnchantedMaze = new EnchantedMaze
-  def makeRoom : EnchantedRoom = new EnchantedRoom
+class EnchantedMazeGame extends MazeGame[Maze, Room, EnchantedWall] {
+  val allowMagicSpells = true
+  def makeMaze : Maze = new Maze("Basic Maze")
+  def makeRoom : Room = new Room("Basic Room")
+
   def makeWall : EnchantedWall = new EnchantedWall
 }
 
-val bm = (new BombedMazeGame()).createMaze
+val hm = (new HauntedMazeGame()).createMaze
 val em = (new EnchantedMazeGame()).createMaze

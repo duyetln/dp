@@ -17,9 +17,9 @@ class Maze(val name : String) {
   protected val walls = new ListBuffer[Wall]()
 }
 
-class BombedRoom extends Room("Bombed Room")
-class BombedWall extends Wall("Bombed Wall")
-class BombedMaze extends Maze("Bombed Maze")
+class HauntedRoom extends Room("Haunted Room")
+class HauntedWall extends Wall("Haunted Wall")
+class HauntedMaze extends Maze("Haunted Maze")
 
 class EnchantedRoom extends Room("Enchanted Room")
 class EnchantedWall extends Wall("Enchanted Wall")
@@ -40,17 +40,21 @@ abstract class MazeGame {
   }
 }
 
-class BombedMazeGame extends MazeGame {
-  def makeMaze : Maze = new BombedMaze
-  def makeRoom : Room = new BombedRoom
-  def makeWall : Wall = new BombedWall
+class BasicMazeGame extends MazeGame {
+  def makeMaze : Maze = new Maze("Basic Maze")
+  def makeRoom : Room = new Room("Basic Room")
+  def makeWall : Wall = new Wall("Basic Wall")
 }
 
-class EnchantedMazeGame extends MazeGame {
-  def makeMaze : Maze = new EnchantedMaze
-  def makeRoom : Room = new EnchantedRoom
-  def makeWall : Wall = new EnchantedWall
+class HauntedMazeGame extends BasicMazeGame {
+  val allowHolySpells = true
+  override def makeRoom : HauntedRoom = new HauntedRoom
 }
 
-val bm = (new BombedMazeGame()).createMaze
+class EnchantedMazeGame extends BasicMazeGame {
+  val allowMagicSpells = true
+  override def makeWall : EnchantedWall = new EnchantedWall
+}
+
+val hm = (new HauntedMazeGame()).createMaze
 val em = (new EnchantedMazeGame()).createMaze
