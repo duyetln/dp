@@ -18,12 +18,8 @@ class Maze(val name : String) {
 }
 
 class HauntedRoom extends Room("Haunted Room")
-class HauntedWall extends Wall("Haunted Wall")
-class HauntedMaze extends Maze("Haunted Maze")
 
-class EnchantedRoom extends Room("Enchanted Room")
 class EnchantedWall extends Wall("Enchanted Wall")
-class EnchantedMaze extends Maze("Enchanted Maze")
 
 abstract class MazeGame {
   def makeMaze : Maze
@@ -68,8 +64,6 @@ class TwinEnchantedMazeGame extends BasicMazeGame with Enchanted {
   override def makeRoom : HauntedRoom = twin.makeRoom
 }
 
-val hmg = new BasicMazeGame with Haunted
-val emg = new BasicMazeGame with Enchanted
 val thmg = new TwinHauntedMazeGame
 val temg = new TwinEnchantedMazeGame
 

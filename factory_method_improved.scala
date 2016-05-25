@@ -18,12 +18,8 @@ class Maze(val name : String) {
 }
 
 class HauntedRoom extends Room("Haunted Room")
-class HauntedWall extends Wall("Haunted Wall")
-class HauntedMaze extends Maze("Haunted Maze")
 
-class EnchantedRoom extends Room("Enchanted Room")
 class EnchantedWall extends Wall("Enchanted Wall")
-class EnchantedMaze extends Maze("Enchanted Maze")
 
 abstract class MazeGame {
   def makeMaze : Maze
@@ -56,8 +52,6 @@ trait Enchanted extends BasicMazeGame {
   override def makeWall : EnchantedWall = new EnchantedWall
 }
 
-val hmg = new BasicMazeGame with Haunted
-val emg = new BasicMazeGame with Enchanted
 val hbmg = new BasicMazeGame with Haunted with Enchanted
 
 println(hbmg.allowHolySpells)
