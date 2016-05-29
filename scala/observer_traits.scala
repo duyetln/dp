@@ -20,32 +20,42 @@ trait Subject[T] {
   protected val obs = new ListBuffer[T => Unit]()
 }
 
-class ClockTimer {
-  def tick {
-    println("tick")
+class Button {
+  def click {
+    println("click")
   }
 }
 
-class DigitalClock {
-  def update(t : ClockTimer) {
-    println("digital clock updated")
+class ListBox {
+  def setList {
+    println("setList")
+  }
+
+  def update(b : Button) {
+    setList
   }
 }
 
-class AnalogClock {
-  def update(t : ClockTimer) {
-    println("analog clock updated")
+class EntryField {
+  def setText {
+    println("setText")
+  }
+
+  def update(b : Button) {
+    setText
   }
 }
 
-trait ClockTimerSubject extends ClockTimer with Subject[ClockTimer] {
-  override def tick {
-    super.tick
+trait ButtonSubject extends Button with Subject[Button] {
+  override def click {
+    super.click
     notifyObservers
   }
 }
 
-val timer = new ClockTimer with ClockTimerSubject
-timer attachObserver (new DigitalClock().update)
-timer attachObserver (new AnalogClock().update)
-1 to 5 foreach { _ => timer.tick }
+val ok = new Button with ButtonSubject
+val cancel = new Button with ButtonSubject
+ok attachObserver (new EntryField().update)
+cancel attachObserver (new ListBox().update)
+ok.click
+cancel.click

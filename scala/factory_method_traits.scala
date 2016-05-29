@@ -18,18 +18,14 @@ class Maze(val name : String) {
 }
 
 class HauntedRoom extends Room("Haunted Room")
-class HauntedWall extends Wall("Haunted Wall")
-class HauntedMaze extends Maze("Haunted Maze")
 
-class EnchantedRoom extends Room("Enchanted Room")
 class EnchantedWall extends Wall("Enchanted Wall")
-class EnchantedMaze extends Maze("Enchanted Maze")
 
-trait MazeGame[M <: Maze, R <: Room, W <: Wall]  {
-  def makeMaze : M
-  def makeRoom : R
-  def makeWall : W
-  def createMaze : M = {
+abstract class MazeGame {
+  def makeMaze : Maze
+  def makeRoom : Room
+  def makeWall : Wall
+  def createMaze : Maze = {
     val m = makeMaze
 
     m addRoom makeRoom
@@ -40,21 +36,23 @@ trait MazeGame[M <: Maze, R <: Room, W <: Wall]  {
   }
 }
 
-class HauntedMazeGame extends MazeGame[Maze, HauntedRoom, Wall] {
-  val allowHolySpells = true
-  def makeMaze : Maze = new Maze("Basic Maze")
-  def makeWall : Wall = new Wall("Basic Wall")
-
-  def makeRoom : HauntedRoom = new HauntedRoom
-}
-
-class EnchantedMazeGame extends MazeGame[Maze, Room, EnchantedWall] {
-  val allowMagicSpells = true
+class BasicMazeGame extends MazeGame {
   def makeMaze : Maze = new Maze("Basic Maze")
   def makeRoom : Room = new Room("Basic Room")
-
-  def makeWall : EnchantedWall = new EnchantedWall
+  def makeWall : Wall = new Wall("Basic Wall")
 }
 
-val hm = (new HauntedMazeGame()).createMaze
-val em = (new EnchantedMazeGame()).createMaze
+trait Haunted extends BasicMazeGame {
+  val allowHolySpells = true
+  override def makeRoom : HauntedRoom = new HauntedRoom
+}
+
+trait Enchanted extends BasicMazeGame {
+  val allowMagicSpells = true
+  override def makeWall : EnchantedWall = new EnchantedWall
+}
+
+val hbmg = new BasicMazeGame with Haunted with Enchanted
+
+println(hbmg.allowHolySpells)
+println(hbmg.allowMagicSpells)

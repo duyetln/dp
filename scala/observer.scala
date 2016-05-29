@@ -23,28 +23,38 @@ abstract class Subject {
   protected val obs = new ListBuffer[Observer]()
 }
 
-class ClockTimer extends Subject {
-  def tick {
-    println("tick")
+class Button extends Subject {
+  def click {
+    println("click")
     notifyObservers
   }
 }
 
-class DigitalClock(val timer : ClockTimer) extends Observer {
+class ListBox(val button : Button) extends Observer {
+  def setList {
+    println("setList")
+  }
+
   def update(subj : AnyRef) {
-    if (subj eq timer)
-      println("digital clock updated")
+    if (subj eq button)
+      setList
   }
 }
 
-class AnalogClock(val timer : ClockTimer) extends Observer {
+class EntryField(val button : Button) extends Observer {
+  def setText {
+    println("setText")
+  }
+
   def update(subj : AnyRef) {
-    if (subj eq timer)
-      println("analog clock updated")
+    if (subj eq button)
+      setText
   }
 }
 
-val timer = new ClockTimer
-timer attachObserver (new DigitalClock(timer))
-timer attachObserver (new AnalogClock(timer))
-1 to 5 foreach { _ => timer.tick }
+val ok = new Button
+val cancel = new Button
+ok attachObserver (new EntryField(ok))
+cancel attachObserver (new ListBox(cancel))
+ok.click
+cancel.click
