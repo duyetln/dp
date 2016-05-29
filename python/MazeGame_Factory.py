@@ -25,11 +25,11 @@ class Maze:
 
 
 class HauntedRoom(Room): pass
-
+class HauntedWall(Wall): pass
 class HauntedMaze(Maze): pass
 
+class EnchantedRoom(Room): pass
 class EnchantedWall(Wall): pass
-
 class EnchantedMaze(Maze): pass
 
 
