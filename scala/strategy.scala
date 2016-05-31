@@ -38,7 +38,7 @@ class Bill(val discount : Discount = new NoDiscount()) {
 
 val b1 = new Bill(new FlatDiscount(5))
 val b2 = new Bill(new PercentageDiscount(0.1))
-val b3 = new Bill
+val b3 = new Bill(new NoDiscount())
 
 val i1 = new Item("Lunch", 10)
 val i2 = new Item("Dessert", 7.5)
