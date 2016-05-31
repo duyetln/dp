@@ -43,12 +43,12 @@ class BasicMazeGame extends MazeGame {
 }
 
 class HauntedMazeGame extends BasicMazeGame {
-  val allowHolySpells = true
+  var allowHolySpells = true
   override def makeRoom : HauntedRoom = new HauntedRoom
 }
 
 class EnchantedMazeGame extends BasicMazeGame {
-  val allowMagicSpells = true
+  var allowMagicSpells = true
   override def makeWall : EnchantedWall = new EnchantedWall
 }
 
