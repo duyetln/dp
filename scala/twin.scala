@@ -42,24 +42,24 @@ class BasicMazeGame extends MazeGame {
   def makeWall : Wall = new Wall("Basic Wall")
 }
 
-trait Haunted extends BasicMazeGame {
+class HauntedMazeGame extends BasicMazeGame {
   val allowHolySpells = true
   override def makeRoom : HauntedRoom = new HauntedRoom
 }
 
-trait Enchanted extends BasicMazeGame {
+class EnchantedMazeGame extends BasicMazeGame {
   val allowMagicSpells = true
   override def makeWall : EnchantedWall = new EnchantedWall
 }
 
-class TwinHauntedMazeGame extends BasicMazeGame with Haunted {
-  var twin : BasicMazeGame with Enchanted = null;
+class TwinHauntedMazeGame extends HauntedMazeGame {
+  var twin : EnchantedMazeGame = null;
   def allowMagicSpells : Boolean = twin.allowMagicSpells
   override def makeWall : EnchantedWall = twin.makeWall
 }
 
-class TwinEnchantedMazeGame extends BasicMazeGame with Enchanted {
-  var twin : BasicMazeGame with Haunted = null;
+class TwinEnchantedMazeGame extends EnchantedMazeGame {
+  var twin : HauntedMazeGame = null;
   def allowHolySpells : Boolean = twin.allowHolySpells
   override def makeRoom : HauntedRoom = twin.makeRoom
 }
