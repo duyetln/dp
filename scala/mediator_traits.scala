@@ -1,16 +1,19 @@
-class ListBox {
+abstract class Widget {
+}
+
+class ListBox extends Widget {
   def setList {
     println("setList")
   }
 }
 
-class EntryField {
+class EntryField extends Widget {
   def setText {
     println("setText")
   }
 }
 
-class Button {
+class Button extends Widget {
   def click {
     println("click")
   }
