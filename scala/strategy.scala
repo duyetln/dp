@@ -1,62 +1,66 @@
 import scala.collection.mutable.ListBuffer
 
-class Item(val name : String, val price : Double)
-
 abstract class Discount {
-  def total(price : Double) : Double
+  def price(p: Double) : Double
 }
 
-class FlatDiscount(amount : Double) extends Discount {
-  def total(price : Double) = {
-    if (price > amount) price - amount else 0
+class FlatDiscount(amount: Double) extends Discount {
+  def price(p: Double) = {
+    if (p > amount) p - amount else 0
   }
 }
 
 class PercentageDiscount(percent : Double) extends Discount {
-  def total(price : Double) = {
-    if (percent < 1) price * (1 - percent) else 0
+  def price(p: Double) = {
+    if (percent < 1) p * (1 - percent) else 0
   }
 }
 
 class NoDiscount extends Discount {
-  def total(price : Double) = price
+  def price(p: Double) = p
 }
 
-class Bill(val discount : Discount = new NoDiscount()) {
-  def addItem(item : Item) {
-    items += item
-  }
-
-  def price : Double = items.map(i => i.price).sum
-
-  def total : Double = {
-    discount total price
-  }
-
-  protected val items = new ListBuffer[Item]()
+abstract class Equipment(val name : String) {
+  def price : Double
 }
 
-val b1 = new Bill(new FlatDiscount(5))
-val b2 = new Bill(new PercentageDiscount(0.1))
-val b3 = new Bill(new NoDiscount())
+class CompositeEquipment(name : String, val discount : Discount) extends Equipment(name) {
+  def price : Double = discount price (equipments.map(e => e.price).sum)
+  def addEquipment(e : Equipment) {
+    if (!(equipments contains e))
+      equipments += e
+  }
 
-val i1 = new Item("Lunch", 10)
-val i2 = new Item("Dessert", 7.5)
-val i3 = new Item("Coffee", 5)
+  def removeEquipment(e : Equipment) {
+    if (equipments contains e)
+      equipments -= e
+  }
 
-b1 addItem i1
-b1 addItem i2
-b1 addItem i3
-println(b1.total)
+  protected val equipments = new ListBuffer[Equipment]()
+}
 
-b2 addItem i1
-b2 addItem i2
-b2 addItem i3
-println(b2.total)
+class GraphicCard(name : String) extends Equipment(name) {
+  def price : Double = 45
+}
 
-b3 addItem i1
-b3 addItem i2
-b3 addItem i3
-println(b3.total)
+class CPU(name : String) extends Equipment(name) {
+  def price : Double = 75
+}
+
+class Motherboard(name : String, discount: Discount) extends CompositeEquipment(name, discount) {
+}
+
+val cpu1 = new CPU("i7")
+val gcd1 = new GraphicCard("GTX 900")
+val mbd1 = new Motherboard("EVGA Z710 FTW", new NoDiscount()) // normal price
+mbd1 addEquipment cpu1
+mbd1 addEquipment gcd1
+println(mbd1.price)
 
 
+val cpu2 = new CPU("i7")
+val gcd2 = new GraphicCard("GTX 900")
+val salebundle = new Motherboard("EVGA Z710 FTW", new PercentageDiscount(0.3)) // holiday sale
+salebundle addEquipment cpu2
+salebundle addEquipment gcd2
+println(salebundle.price)
