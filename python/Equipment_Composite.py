@@ -1,52 +1,60 @@
 """Equipment"""
 
 class Equipment:
+    
+    def __init__(self, name, price, power):
+    self.name = name
+    self.power = power
+    self.price = price
+    
 
+Class CompositeEquipment(Equipment):
     Equipment = []
-
-    def __init__(self, name, power=None, netPrice = None, discountPrice=None):
-        self.name = name
-        self.power = power
-        self.netPrice = netPrice
-        self.discountPrice = discountPrice
-
+        
     def Power(self):
+        sum = 0.
+        for e in self.Equipment:
+            sum += e.power
+        self.Power = sum
         return self.Power
-    def NetPrice(self):
-        return self.NetPrice
-    def DiscountPrice(self):
-        return self.discountPrice
+        
+    def Price(self):
+        sum = 0.
+        for e in self.Equipment:
+            sum += e.power
+        self.Power = sum
+        return self.Power
 
-    def Add(self, Equipment):
-        self.Equipment.append(Equipment)
+    def Add(self, e):
+        if e not in self.Equipment:
+            self.Equipment.append(e)
 
-    def Remove(self, Equipment):
-        self.Equipment.remove(Equipment)
-
-
-class FloppyDisk(Equipment):
-    pass
-
-class Cabinet(Equipment):
-    pass
-
-class Chassis(Equipment):
-    pass
-
-class Bus(Equipment):
-    pass
-
-class Card(Equipment):
-    pass
+    def Remove(self, e):
+        if e in self.Equipment:
+            self.Equipment.remove(e)
 
 
-cabinet = Cabinet("PC Cabinet")
-chassis = Chassis("PC Chassis")
+class GraphicsCard(Equipment):
+   def __init__(self, name):
+       self.name = name
+       self.price = 45.
+       self.power = 120.
 
-cabinet.Add(chassis)
+class CPU(Equipment):
+    def __init__(self, name):
+       self.name = name
+       self.price = 75.
+       self.power = 15.
 
-bus = Bus("MCA Bus")
-bus.Add(Card("16Mbs Token Ring"))
+class Motherboard(CompositeEquipment):
+    def __init__(self, name):
+        self.name = name
 
-chassis.Add(bus)
-chassis.Add(FloppyDisk("3.5in Floppy"))
+cpu = CPU("i7")
+gcd = GraphicsCard("GTX 900")
+mbd = Motherboard("EVGA Z710 FTW")
+
+mbd.Add(cpu)
+mbd.Add(gcd)
+print mbd.Power
+print mbd.Price
