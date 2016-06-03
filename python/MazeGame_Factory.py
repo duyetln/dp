@@ -25,23 +25,11 @@ class Maze:
 class HauntedRoom(Room):
     def __new__(self):
         return Room.__new__("Haunted Room")
-class HauntedWall(Wall):
-    def __new__(self):
-        return Wall.__new__("Haunted Wall")
-class HauntedMaze(Maze):
-    def __new__(self):
-        return Maze.__new__("Haunted Maze")
 
 
-class EnchantedRoom(Room):
-    def __new__(self):
-        return Room.__new__("Enchanted Room")
 class EnchantedWall(Wall):
     def __new__(self):
         return Wall.__init__("Enchanted Wall")
-class EnchantedMaze(Maze):
-    def __new__(self):
-        return Maze.__new__("Enchanted Maze")
 
 
 class MazeGame:
