@@ -89,14 +89,19 @@ class EnchantedMazeGame(MazeGame):
 
 
 # Adapter hybridization solution:
-class AdaptedMazeGame(HauntedMazeGame):
+class AdaptedMazeGame:
 
-    def __init__(self, emg):
+    def __init__(self, emg, hmg):
         self.EMG = emg
+        self.HMG = hmg
         self.allowMagicSpells = emg.allowMagicSpells
+        self.allowHolySpells = hmg.allowHolySpells
 
     def makeWall(self):
         self.EMG.makeWall()
+        
+    def makeRoom(self):
+        self.HMG.makeRoom()
 
 
 hmg = HauntedMazeGame()
