@@ -1,134 +1,59 @@
 'An Observer implementation of the DialogDirector program'
 
-class DialogBox:
+class Observer:
+    def update(self, ref):
+        pass
 
-    observers = []
-
+class Subject:
+    
     def __init__(self):
-         pass
+        self.obs = []
+    
+    def attachObserver(self, ob):
+        if ob not in self.obs:
+            self.obs.append(ob)
 
-    def ShowDialog(self):
-        # show dialog
-        pass
+    def detach Observer(self, ob):
+        if ob in self.obs:
+            self.obs.remove(ob)
+            
+    def notifyObservers(self):
+        for ob in self.obs:
+            ob.update(self)
+            
 
-    def attach(self, obs):
-        if obs not in self.observers:
-            self.observers.append(obs)
-
-    def detach(self, obs):
-        if obs in self.observers:
-            self.observers.remove(obs)
-
-    def notify(self):
-        for obs in self.observers:
-            obs.update()
-
-    def update(self):
-        # do a thing, based on notification from observed object
-        pass
+class Button(Subject):
+    def click(self):
+        print "click"
+        self.notifyObservers()
 
 
-class Widget:
+class ListBox(Observer):
+    def __init__(self, b):
+        self.button = b
+    
+    def setList(self):
+        print "set list"
+        
+    def update(self, ref):
+        if ref == self.button:
+            self.setlist()
 
-    observers = []
+class EntryField(Observer):
+    def __init__(self, b):
+        self.button = b
+        
+    def setText(self):
+        print "set text"
+        
+    def update(ref):
+        if ref == self.button:
+            self.setText()
+            
 
-    def __init__(self, obs=None):
-        self.attach(obs)
-
-    def HandleMouse(self, MouseEvent, Event):
-        # abstract method, to be overriden by subclasses
-        pass
-
-    def attach(self, obs):
-        if obs not in self.observers:
-            self.observers.append(obs)
-
-    def detach(self, obs):
-        if obs in self.observers:
-            self.observers.remove(obs)
-
-    def notify(self, type=None):
-        for obs in self.observers:
-            obs.update()
-
-    def update(self):
-        # do a thing, based on notification from observed object
-        pass
-
-class ListBox(Widget):
-
-    def GetSelection(self):
-        char = None
-        return char
-
-    def HandleMouse(self, MouseEvent, Event):
-        pass
-
-class EntryField(Widget):
-
-    def SetText(self, text):
-        # set text
-        pass
-
-    def GetText(self):
-        # return selected text
-        char = None
-        return char
-
-    def HandleMouse(self, MouseEvent, Event):
-        pass
-
-class Button(Widget):
-
-    def SetText(self, text):
-        # set text
-        pass
-
-    def HandleMouse(self, MouseEvent, Event):
-        pass
-
-
-class FontDialogBox(DialogBox):
-
-    def __init__(self):
-        DialogBox.__init__(self)
-
-    def update(self, type=None):
-        if type == "approved":
-            # apply font change, dismiss
-            pass
-        elif type == "cancelled":
-            # dismiss
-            pass
-
-
-class ok(Button):
-    def update(self):
-        self.notify("approved") # notify FontDialogBox, which will apply font change and close itself
-        pass
-
-class cancel(Button):
-    def update(self):
-        self.notify("cancelled") # notify FontDialogBox, which will close itself
-        pass
-
-class fontList(ListBox):
-    def update(self):
-        ##
-        pass
-
-class fontName(EntryField):
-    def update(self):
-        self.SetText(fontList.GetSelection())
-        pass
-
-fontDialogBox = FontDialogBox()
-ok = ok()
-cancel = cancel()
-fontList = fontList()
-fontName = fontName()
-
-ok.attach(fontDialogBox)
-cancel.attach(fontDialogBox)
-fontList.attach(fontName)
-
+ok = Button()
+cancel = Button()
+ok.attachObserver(EntryField(ok))
+cancel.attachObserver(ListBox(cancel))
+ok.click
+cancel.click
