@@ -13,8 +13,6 @@
 (defclass HauntedMaze (Maze)
 	((room
 		:initform "HauntedRoom")
-	(wall
-		:initform "HauntedWall")
 	(holySpells
 		:initform t
 		:reader holySpells)
@@ -22,9 +20,7 @@
 )
 	
 (defclass EnchantedMaze (Maze)
-	((room
-		:initform "EnchantedRoom")
-	(wall
+	((wall
 		:initform "EnchantedWall")
 	(magicSpells
 		:initform t
