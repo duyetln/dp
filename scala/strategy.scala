@@ -1,31 +1,24 @@
 import scala.collection.mutable.ListBuffer
 
-abstract class Discount {
-  def price(p: Double) : Double
+abstract class Pricing {
+  def price(p : Double) : Double
 }
 
-class FlatDiscount(amount: Double) extends Discount {
-  def price(p: Double) = {
-    if (p > amount) p - amount else 0
-  }
+class NormalPricing extends Pricing {
+  def price(p : Double) : Double = p
 }
 
-class PercentageDiscount(percent : Double) extends Discount {
-  def price(p: Double) = {
-    if (percent < 1) p * (1 - percent) else 0
-  }
-}
-
-class NoDiscount extends Discount {
-  def price(p: Double) = p
+class ComboPricing extends Pricing {
+  def price(p : Double) : Double = p * 0.8
 }
 
 abstract class Equipment(val name : String) {
+  var pricing : Pricing = new NormalPricing
   def price : Double
 }
 
-class CompositeEquipment(name : String, val discount : Discount) extends Equipment(name) {
-  def price : Double = discount price (equipments.map(e => e.price).sum)
+class Bundle(name : String) extends Equipment(name) {
+  def price : Double = pricing price (equipments.map(e => e.price).sum)
   def addEquipment(e : Equipment) {
     if (!(equipments contains e))
       equipments += e
@@ -47,20 +40,18 @@ class CPU(name : String) extends Equipment(name) {
   def price : Double = 75
 }
 
-class Motherboard(name : String, discount: Discount) extends CompositeEquipment(name, discount) {
+class Motherboard(name : String) extends Equipment(name) {
+  def price : Double = 150
 }
 
-val cpu1 = new CPU("i7")
-val gcd1 = new GraphicCard("GTX 900")
-val mbd1 = new Motherboard("EVGA Z710 FTW", new NoDiscount()) // normal price
-mbd1 addEquipment cpu1
-mbd1 addEquipment gcd1
-println(mbd1.price)
+val cpu = new CPU("i7")
+val gcd = new GraphicCard("GTX 900")
+val mbd = new Motherboard("EVGA Z710 FTW")
+val bnd = new Bundle("PC Building")
+bnd addEquipment cpu
+bnd addEquipment gcd
+bnd addEquipment mbd
+println(bnd.price)
 
-
-val cpu2 = new CPU("i7")
-val gcd2 = new GraphicCard("GTX 900")
-val salebundle = new Motherboard("EVGA Z710 FTW", new PercentageDiscount(0.3)) // holiday sale
-salebundle addEquipment cpu2
-salebundle addEquipment gcd2
-println(salebundle.price)
+bnd.pricing = new ComboPricing
+println(bnd.price)

@@ -4,7 +4,7 @@ abstract class Equipment(val name : String) {
   def price : Double
 }
 
-class CompositeEquipment(name : String) extends Equipment(name) {
+class Bundle(name : String) extends Equipment(name) {
   def price : Double = equipments.map(e => e.price).sum
   def addEquipment(e : Equipment) {
     if (!(equipments contains e))
@@ -27,12 +27,15 @@ class CPU(name : String) extends Equipment(name) {
   def price : Double = 75
 }
 
-class Motherboard(name : String) extends CompositeEquipment(name) {
+class Motherboard(name : String) extends Equipment(name) {
+  def price : Double = 150
 }
 
 val cpu = new CPU("i7")
 val gcd = new GraphicCard("GTX 900")
 val mbd = new Motherboard("EVGA Z710 FTW")
-mbd addEquipment cpu
-mbd addEquipment gcd
-println(mbd.price)
+val bnd = new Bundle("PC Building")
+bnd addEquipment cpu
+bnd addEquipment gcd
+bnd addEquipment mbd
+println(bnd.price)
