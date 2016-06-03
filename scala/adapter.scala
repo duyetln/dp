@@ -52,14 +52,24 @@ class EnchantedMazeGame extends BasicMazeGame {
   override def makeWall : EnchantedWall = new EnchantedWall
 }
 
-class HybridMazeGame extends BasicMazeGame {
-  val haunted = new HauntedMazeGame
-  val enchanted = new EnchantedMazeGame
+class HybridMazeGame {
+  protected val haunted = new HauntedMazeGame
+  protected val enchanted = new EnchantedMazeGame
+  protected val mazeGame = new BasicMazeGame
 
   def allowHolySpells = haunted.allowHolySpells
   def allowMagicSpells = enchanted.allowMagicSpells
-  override def makeRoom : HauntedRoom = haunted.makeRoom
-  override def makeWall : EnchantedWall = enchanted.makeWall
+
+  def makeMaze : Maze = mazeGame.makeMaze
+  def makeRoom : HauntedRoom = haunted.makeRoom
+  def makeWall : EnchantedWall = enchanted.makeWall
+
+  def createMaze : Maze = {
+    val m = makeMaze
+    m addRoom makeRoom
+    m addWall makeWall
+    m
+  }
 }
 
 val hbmg = new HybridMazeGame
