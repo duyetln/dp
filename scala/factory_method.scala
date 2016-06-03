@@ -43,18 +43,18 @@ class BasicMazeGame extends MazeGame {
 }
 
 class HauntedMazeGame extends BasicMazeGame {
-  var allowHolySpells = true
+  val allowHolySpells = true
   override def makeRoom : HauntedRoom = new HauntedRoom
 }
 
 class EnchantedMazeGame extends BasicMazeGame {
-  var allowMagicSpells = true
+  val allowMagicSpells = true
   override def makeWall : EnchantedWall = new EnchantedWall
 }
 
 class HybridMazeGame extends BasicMazeGame {
-  var allowHolySpells = true
-  var allowMagicSpells = true
+  val allowHolySpells = true
+  val allowMagicSpells = true
   override def makeRoom : HauntedRoom = new HauntedRoom
   override def makeWall : EnchantedWall = new EnchantedWall
 }
