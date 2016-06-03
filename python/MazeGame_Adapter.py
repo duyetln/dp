@@ -1,20 +1,17 @@
 class Room:
-    def __init__(self):
-        pass
-
+    def __init__(self, name="Room"):
+        self.name = name
 
 class Wall:
-    def __init__(self):
-        pass
-
+    def __init__(self, name="Wall"):
+        self.name = name
 
 class Maze:
-
     rooms = []
     walls = []
 
-    def __init__(self):
-        pass
+    def __init__(self, name="Maze"):
+        self.name = name
 
     def addRoom(self, r):
         if r not in self.rooms:
@@ -25,13 +22,26 @@ class Maze:
             self.walls.append(w)
 
 
-class HauntedRoom(Room): pass
-class HauntedWall(Wall): pass
-class HauntedMaze(Maze): pass
+class HauntedRoom(Room):
+    def __new__(self):
+        return Room.__new__("Haunted Room")
+class HauntedWall(Wall):
+    def __new__(self):
+        return Wall.__new__("Haunted Wall")
+class HauntedMaze(Maze):
+    def __new__(self):
+        return Maze.__new__("Haunted Maze")
 
-class EnchantedRoom(Room): pass
-class EnchantedWall(Wall): pass
-class EnchantedMaze(Maze): pass
+
+class EnchantedRoom(Room):
+    def __new__(self):
+        return Room.__new__("Enchanted Room")
+class EnchantedWall(Wall):
+    def __new__(self):
+        return Wall.__init__("Enchanted Wall")
+class EnchantedMaze(Maze):
+    def __new__(self):
+        return Maze.__new__("Enchanted Maze")
 
 
 class MazeGame:
@@ -52,11 +62,17 @@ class MazeGame:
         m.addRoom(self.makeRoom())
         m.addWall(self.makeWall())
         m.addWall(self.makeWall())
-        # etc
 
+class BasicMazeGame(MazeGame):
+    def makeMaze(self):
+        return Maze.__init__("Basic Maze")
+    def makeRoom(self):
+        return Maze.__init__("Basic Room")
+    def makeWall(self):
+        return Maze.__init__("Basic Wall")
+  
 
 class HauntedMazeGame(MazeGame):
-
     allowHolySpells = True
 
     def makeRoom(self):
@@ -69,6 +85,7 @@ class EnchantedMazeGame(MazeGame):
 
     def makeWall(self):
         return EnchantedWall()
+
 
 
 # Adapter hybridization solution:
