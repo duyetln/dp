@@ -8,22 +8,6 @@ class Wall:
         self.name = name
 
 
-class Maze:
-    rooms = []
-    walls = []
-
-    def __init__(self, name="Maze"):
-        self.name = name
-
-    def addRoom(self, r):
-        if r not in self.rooms:
-            self.rooms.append(r)
-
-    def addWall(self, w):
-        if w not in self.walls:
-            self.walls.append(w)
-
-
 class HauntedRoom(Room):
     def __init__(self):
         Room.__init__(self, "Haunted Room")
@@ -32,6 +16,22 @@ class HauntedRoom(Room):
 class EnchantedWall(Wall):
     def __init__(self):
         Wall.__init__(self, "Enchanted Wall")
+
+
+class Maze:
+    
+    def __init__(self, name="Maze"):
+        self.name = name
+        self.rooms = []
+        self.walls = []
+
+    def addRoom(self, r):
+        if r not in self.rooms:
+            self.rooms.append(r)
+
+    def addWall(self, w):
+        if w not in self.walls:
+            self.walls.append(w)
 
 
 class MazeGame:
