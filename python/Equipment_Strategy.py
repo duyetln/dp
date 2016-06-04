@@ -66,7 +66,10 @@ class Purchase:
 
     def __init__(self, equipment):
         self.equipment = equipment
-        self.pricing = NormalPricing()
+        if isinstance(equipment, Bundle):
+            self.pricing = ComboPricing()
+        else:
+            self.pricing = NormalPricing()
 
     def total(self):
         return self.pricing.calculate(self.equipment.price())
@@ -81,7 +84,5 @@ bnd.addEquipment(cpu)
 bnd.addEquipment(gcd)
 bnd.addEquipment(mbd)
 pur = Purchase(bnd)
-print pur.total()
 
-pur.pricing = ComboPricing()
 print pur.total()
