@@ -16,6 +16,7 @@ abstract class Equipment(val name : String) {
   def price : Double
 }
 
+// Composite equipment
 class Bundle(name : String) extends Equipment(name) {
   def price : Double = equipments.map(e => e.price).sum
   def addEquipment(e : Equipment) {

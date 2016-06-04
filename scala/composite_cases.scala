@@ -3,6 +3,7 @@ import scala.collection.mutable.ListBuffer
 abstract class Equipment {
 }
 
+// Composite equipment
 case class Bundle(name : String, equipments : List[Equipment]) extends Equipment {
 }
 
