@@ -2,6 +2,10 @@ import scala.collection.mutable.ListBuffer
 
 class Room(val name : String)
 class Wall(val name : String)
+
+class HauntedRoom extends Room("Haunted Room")
+class EnchantedWall extends Wall("Enchanted Wall")
+
 class Maze(val name : String) {
   def addRoom(r : Room) {
     if (!(rooms contains r))
@@ -16,10 +20,6 @@ class Maze(val name : String) {
   protected val rooms = new ListBuffer[Room]()
   protected val walls = new ListBuffer[Wall]()
 }
-
-class HauntedRoom extends Room("Haunted Room")
-
-class EnchantedWall extends Wall("Enchanted Wall")
 
 abstract class MazeGame {
   def makeMaze : Maze
@@ -52,25 +52,13 @@ class EnchantedMazeGame extends BasicMazeGame {
   override def makeWall : EnchantedWall = new EnchantedWall
 }
 
-class TwinHauntedMazeGame extends HauntedMazeGame {
-  var twin : EnchantedMazeGame = null;
+class HybridMazeGame extends HauntedMazeGame {
+  val twin = new EnchantedMazeGame
   def allowMagicSpells : Boolean = twin.allowMagicSpells
   override def makeWall : EnchantedWall = twin.makeWall
 }
 
-class TwinEnchantedMazeGame extends EnchantedMazeGame {
-  var twin : HauntedMazeGame = null;
-  def allowHolySpells : Boolean = twin.allowHolySpells
-  override def makeRoom : HauntedRoom = twin.makeRoom
-}
+val hmg = new HybridMazeGame
 
-val thmg = new TwinHauntedMazeGame
-val temg = new TwinEnchantedMazeGame
-
-thmg.twin = temg
-temg.twin = thmg
-
-println(thmg.allowHolySpells)
-println(thmg.allowMagicSpells)
-println(temg.allowHolySpells)
-println(temg.allowMagicSpells)
+println(hmg.allowHolySpells)
+println(hmg.allowMagicSpells)
