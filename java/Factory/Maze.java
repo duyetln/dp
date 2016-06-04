@@ -36,8 +36,8 @@ class HauntedMazeGame extends BasicMazeGame implements HolySpell
 {
     public void setupRooms()
     {
-        addRoom(new Room("Haunted Room"));
-        addRoom(new Room("Haunted Room"));
+        addRoom(new HauntedRoom());
+        addRoom(new HauntedRoom());
     }
 
     @Override
@@ -50,9 +50,9 @@ class EnchantedMazeGame extends BasicMazeGame implements MagicSpell
 {
     public void setupWalls()
     {
-        addWall(new Wall("Enchanted Wall"));
-        addWall(new Wall("Enchanted Wall"));
-        addWall(new Wall("Enchanted Wall"));
+        addWall(new EnchantedWall());
+        addWall(new EnchantedWall());
+        addWall(new EnchantedWall());
     }
 
     @Override
@@ -65,15 +65,15 @@ class HybridMazeGame extends BasicMazeGame implements HolySpell
 {
     public void setupRooms()
     {
-        addRoom(new Room("Haunted Room"));
-        addRoom(new Room("Haunted Room"));
+        addRoom(new HauntedRoom());
+        addRoom(new HauntedRoom());
     }
 
     public void setupWalls()
     {
-        addWall(new Wall("Enchanted Wall"));
-        addWall(new Wall("Enchanted Wall"));
-        addWall(new Wall("Enchanted Wall"));
+        addWall(new EnchantedWall());
+        addWall(new EnchantedWall());
+        addWall(new EnchantedWall());
     }
 
     public void setHolySpell() {

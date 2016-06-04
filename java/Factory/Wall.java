@@ -13,9 +13,9 @@ public class Wall
 
 class EnchantedWall extends Wall {
 
-    public EnchantedWall(String name)
+    public EnchantedWall()
     {
-        super( name );
+        super( "Enchanted Wall" );
     }
 
 

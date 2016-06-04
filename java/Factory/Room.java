@@ -13,9 +13,9 @@ public class Room
 
 class HauntedRoom extends Room {
 
-    public HauntedRoom(String name)
+    public HauntedRoom()
     {
-        super( name );
+        super( "Haunted Room" );
     }
 
 }
