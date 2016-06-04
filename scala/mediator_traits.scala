@@ -19,7 +19,7 @@ class Button extends Widget {
   }
 }
 
-class FrontDialogDirector {
+class FrontDialogMediator {
   val ok = new Button with OkButton
   val cancel = new Button with CancelButton
   val box = new ListBox
@@ -40,7 +40,7 @@ class FrontDialogDirector {
   }
 }
 
-val director = new FrontDialogDirector
+val director = new FrontDialogMediator
 val ok = director.ok
 val cancel = director.cancel
 ok.click
