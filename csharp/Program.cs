@@ -6,7 +6,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 4;
+            int option = 3;
 
             switch(option)
             {
@@ -60,11 +60,7 @@ namespace DesignPatterns
             b.addEquipment(mb);
             Strategy.Purchase p = new Strategy.Purchase(b);
 
-            p.Pricing = new Strategy.NormalPricing();
-            Console.Write("\nNormal Pricing:" + p.Total);
-
-            p.Pricing = new Strategy.ComboPricing();
-            Console.Write("\nCombo Pricing:" + p.Total);
+            Console.Write("\nPricing:" + p.Total);
 
             Console.Write("\nEnd");
             Console.ReadLine();

@@ -6,7 +6,7 @@ namespace DesignPatterns.Strategy
     {
         List<Equipment> el = new List<Equipment>();
         Pricing pricing;
-        double total;
+        double total = 0;
 
         public Purchase(Equipment e)
         {
@@ -24,7 +24,7 @@ namespace DesignPatterns.Strategy
         {
             get
             {
-                double sum = 0;
+                total = 0;
                 foreach (Equipment x in el)
                 {
                     if (x.GetType().Name.Equals("Bundle"))
@@ -33,11 +33,11 @@ namespace DesignPatterns.Strategy
                     }
                     else
                     {
-                        pricing = new ComboPricing();
+                        pricing = new NormalPricing();
                     }
-                    sum = sum + pricing.calculate(x.price);                    
+                    total = total + pricing.calculate(x.price);                    
                 }
-              return sum;
+              return total;
             }
         }
 
