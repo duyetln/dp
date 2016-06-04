@@ -25,11 +25,13 @@ class Maze:
 
 
 class HauntedRoom(Room):
-    name = "Haunted Room"
+    def __init__(self):
+        Room.__init__(self, "Haunted Room")
 
 
 class EnchantedWall(Wall):
-    name = "Enchanted Wall"
+    def __init__(self):
+        Wall.__init__(self, "Enchanted Wall")
 
 
 class MazeGame:
