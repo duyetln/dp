@@ -13,12 +13,11 @@ class ComboPricing extends Pricing {
 }
 
 abstract class Equipment(val name : String) {
-  var pricing : Pricing = new NormalPricing
   def price : Double
 }
 
 class Bundle(name : String) extends Equipment(name) {
-  def price : Double = pricing calculate (equipments.map(e => e.price).sum)
+  def price : Double = equipments.map(e => e.price).sum
   def addEquipment(e : Equipment) {
     if (!(equipments contains e))
       equipments += e
@@ -44,17 +43,24 @@ class Motherboard(name : String) extends Equipment(name) {
   def price : Double = 150
 }
 
+class Purchase(val equipment : Equipment) {
+  var pricing : Pricing = new NormalPricing
+  def total = pricing calculate (equipment.price)
+}
+
+
 val cpu = new CPU("i7")
 val gcd = new GraphicCard("GTX 900")
 val mbd = new Motherboard("EVGA Z710 FTW")
 val bnd = new Bundle("PC Building")
+val pur = new Purchase(bnd)
 bnd addEquipment cpu
 bnd addEquipment gcd
 bnd addEquipment mbd
-println(bnd.price)
+println(pur.total)
 
-bnd.pricing = new ComboPricing
-println(bnd.price)
+pur.pricing = new ComboPricing
+println(pur.total)
 
-bnd.pricing = new NormalPricing
-println(bnd.price)
+pur.pricing = new NormalPricing
+println(pur.total)
