@@ -53,6 +53,7 @@ class MazeGame:
         m.addRoom(self.makeRoom())
         m.addWall(self.makeWall())
         m.addWall(self.makeWall())
+        return m
 
 
 class BasicMazeGame(MazeGame):
