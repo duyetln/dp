@@ -13,7 +13,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 5;
+            int option = 3;
 
             switch(option)
             {
@@ -27,7 +27,7 @@ namespace DesignPatterns
                     callFactory();
                     break;
                 case 3:
-                    callAdapter();
+                    callStrategy();
                     break;
                 case 4:
                     callComposite();
@@ -41,7 +41,27 @@ namespace DesignPatterns
             }
         }
 
-        
+        private static void callStrategy()
+        {
+            Strategy.CPU cp = new Strategy.CPU("i7");
+            Strategy.GraphicCard gc = new Strategy.GraphicCard("GTX 900");
+            Strategy.MotherBoard mb = new Strategy.MotherBoard("EVGA Z710 FTW");
+            Strategy.Bundle b = new Strategy.Bundle("Bundle ");
+
+            b.addEquipment(cp);
+            b.addEquipment(gc);
+            b.addEquipment(mb);
+            Strategy.Purchase p = new Strategy.Purchase(b);
+
+            p.Pricing = new Strategy.NormalPricing();
+            Console.Write("\nNormal Pricing:" + p.Total);
+
+            p.Pricing = new Strategy.ComboPricing();
+            Console.Write("\nCombo Pricing:" + p.Total);
+
+            Console.Write("\nEnd");
+            Console.ReadLine();
+        }
 
         private static void callComposite()
         {
@@ -53,21 +73,10 @@ namespace DesignPatterns
             b.addComponent(gc);
             b.Display();
 
-            Console.WriteLine("TotalPrice of Motherboard:" + b.getPrice());
-            Console.WriteLine("TotalPower of Motherboard:" + b.getPower());
+            Console.WriteLine("\nTotalPrice of Motherboard:" + b.getPrice());
+            Console.WriteLine("\nTotalPower of Motherboard:" + b.getPower());
 
-            Console.Write("End");
-            Console.ReadLine();
-        }
-
-        private static void callAdapter()
-        {
-            Adapter.GameAdapter game= new Adapter.GameAdapter();
-            Adapter.Maze m = game.createMaze();
-            game.playGame(m);
-            game.specialSpells();
-
-            Console.Write("End");
+            Console.Write("\nEnd");
             Console.ReadLine();
         }
 
@@ -88,7 +97,7 @@ namespace DesignPatterns
 
 
 
-            Console.Write("End");
+            Console.Write("\nEnd");
             Console.ReadLine();
         }
 
@@ -128,7 +137,7 @@ namespace DesignPatterns
             d.pressCancel();
             
 
-            Console.Write("End");
+            Console.Write("\nEnd");
             Console.ReadLine();
         }
 
