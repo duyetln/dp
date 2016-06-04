@@ -13,7 +13,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 2;
+            int option = 6;
 
             switch(option)
             {
@@ -35,10 +35,24 @@ namespace DesignPatterns
                 case 5:
                     callMediator();
                     break;
+                case 6:
+                    callSimplifiedTwin();
+                    break;
                 default:
                     Console.WriteLine("End");
                     break;
             }
+        }
+
+        private static void callSimplifiedTwin()
+        {
+            Twin_Simplified.HybridMazeGame mazegame = new Twin_Simplified.HybridMazeGame();
+            mazegame.createMaze();
+            mazegame.HolySpell();
+            mazegame.MagicSpell();
+
+            Console.Write("\nEnd");
+            Console.ReadLine();
         }
 
         private static void callStrategy()
@@ -136,11 +150,6 @@ namespace DesignPatterns
             Console.Write("End");
             Console.ReadLine();
 
-        }
-
-        private static void waiting()
-        {
-           //no-op
         }
     }
 }
