@@ -6,7 +6,7 @@ class Wall(val name : String)
 class HauntedRoom extends Room("Haunted Room")
 class EnchantedWall extends Wall("Enchanted Wall")
 
-abstract class Maze(val name : String) {
+abstract class Maze {
   def addRoom(r : Room) {
     if (!(rooms contains r))
       rooms += r
@@ -41,7 +41,7 @@ class HauntedMaze extends BasicMaze {
   }
 }
 
-class EnchantedMaze extends Maze {
+class EnchantedMaze extends BasicMaze {
   override def setupWalls {
     addWall(new EnchantedWall())
     addWall(new EnchantedWall())
@@ -49,25 +49,24 @@ class EnchantedMaze extends Maze {
   }
 }
 
-class HybridMaze extends Maze {
-  def setupRooms {
+class HybridMaze extends BasicMaze {
+  override def setupRooms {
     addRoom(new HauntedRoom())
   }
 
-  def setupWalls {
+  override def setupWalls {
     addWall(new EnchantedWall())
   }
 }
 
-
 class MazeGame {
-  def createMaze(type : String) : Maze = {
-    var m : Maze
-    if (type == "haunted")
+  def createMaze(t : String) : Maze = {
+    var m : Maze = null
+    if (t == "haunted")
       m = new HauntedMaze
-    else if (type == "enchanted")
+    else if (t == "enchanted")
       m = new EnchantedMaze
-    else if (type == "hybrid")
+    else if (t == "hybrid")
       m = new HybridMaze
     else
       m = new BasicMaze
