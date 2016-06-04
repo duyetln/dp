@@ -3,30 +3,19 @@
  */
 public class Room
 {
-    private int roomNumber;
+    private String name;
 
-    public Room( int roomNo )
+    public Room( String name )
     {
-        roomNumber = roomNo;
-    }
-
-    public void enter()
-    {
-        System.out.println( "Entering room " + roomNumber );
+        this.name = name;
     }
 }
 
 class HauntedRoom extends Room {
 
-    public HauntedRoom(int roomNo)
+    public HauntedRoom()
     {
-        super( roomNo );
+        super( "Haunted Room" );
     }
 
-    @Override
-    public void enter()
-    {
-        System.out.print("HauntedRoom: ");
-        super.enter();
-    }
 }

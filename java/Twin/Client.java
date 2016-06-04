@@ -5,24 +5,10 @@ public class Client
 {
     public static void main( String[] args )
     {
+        MazeGameFactory mazeGameFactory = new MazeGameFactory();
 
-        MazeGame mazeGame = new MazeGame();
-        HauntedMazeGame hauntedMazeGame = new HauntedMazeGame();
-        EnchantedMazeGame magicMazeGame = new EnchantedMazeGame();
-        HybridMazeGame hybridMazeGame = new HybridMazeGame();
-
-        mazeGame.createMaze();
-
-        hauntedMazeGame.createMaze();
-        hauntedMazeGame.setHolySpell();
-
-        magicMazeGame.createMaze();
-        magicMazeGame.setMagicSpell();
-
-        hybridMazeGame.createMaze();
-        hybridMazeGame.setTwin( magicMazeGame );
-        hybridMazeGame.setMagicSpell();
-        hybridMazeGame.setHolySpell();
-
+        HauntedMazeGame hauntedMazeGame = (HauntedMazeGame)mazeGameFactory.createMaze("Haunted");
+        HybridMazeGame hybridMazeGame = (HybridMazeGame) mazeGameFactory.createMaze("Hybrid");
+        hybridMazeGame.setTwin(hauntedMazeGame);
     }
 }

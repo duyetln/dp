@@ -3,9 +3,11 @@
  */
 public class Wall
 {
-    public void enter()
-    {
-        System.out.println( "Wall encountered!..." );
+    private String name;
+
+    public Wall(String name) {
+
+        this.name = name;
     }
 }
 
@@ -13,12 +15,9 @@ class EnchantedWall extends Wall {
 
     public EnchantedWall()
     {
-        super();
+        super( "Enchanted Wall" );
     }
 
-    @Override
-    public void enter()
-    {
-        System.out.println( "Enchanted Wall encountered!..." );
-    }
+
+
 }

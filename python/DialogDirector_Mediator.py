@@ -32,6 +32,7 @@ class Button(Widget):
 
     def click(self):
         print "click"
+        self.Changed()
 
 
 class FontDialogDirector(DialogDirector):

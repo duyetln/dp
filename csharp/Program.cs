@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DesignPatterns.Factory;
-using DesignPatterns.Twin;
-using DesignPatterns.Composite;
 
 namespace DesignPatterns
 {
@@ -13,7 +6,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 3;
+            int option = 4;
 
             switch(option)
             {
@@ -35,10 +28,24 @@ namespace DesignPatterns
                 case 5:
                     callMediator();
                     break;
+                case 6:
+                    callSimplifiedTwin();
+                    break;
                 default:
                     Console.WriteLine("End");
                     break;
             }
+        }
+
+        private static void callSimplifiedTwin()
+        {
+            Twin_Simplified.HybridMazeGame mazegame = new Twin_Simplified.HybridMazeGame();
+            mazegame.createMaze();
+            mazegame.HolySpell();
+            mazegame.MagicSpell();
+
+            Console.Write("\nEnd");
+            Console.ReadLine();
         }
 
         private static void callStrategy()
@@ -65,16 +72,16 @@ namespace DesignPatterns
 
         private static void callComposite()
         {
-            MotherBoard b = new MotherBoard();
-            CPU cp = new CPU();
-            GraphicCard gc = new GraphicCard();
+            Composite.CPU cp = new Composite.CPU("i7");
+            Composite.GraphicCard gc = new Composite.GraphicCard("GTX 900");
+            Composite.MotherBoard mb = new Composite.MotherBoard("EVGA Z710 FTW");
+            Composite.Bundle b = new Composite.Bundle("Bundle ");
 
-            b.addComponent(cp);
-            b.addComponent(gc);
-            b.Display();
+            b.addEquipment(cp);
+            b.addEquipment(gc);
+            b.addEquipment(mb);
 
-            Console.WriteLine("\nTotalPrice of Motherboard:" + b.getPrice());
-            Console.WriteLine("\nTotalPower of Motherboard:" + b.getPower());
+            Console.Write("\nBundle price:" + b.price);
 
             Console.Write("\nEnd");
             Console.ReadLine();
@@ -103,28 +110,11 @@ namespace DesignPatterns
 
         private static void callFactory()
         {
-            Factory.MazeGame game = new Factory.MazeGame();
-            Factory.Maze m = game.createMaze();
-            game.playGame(m);
+            Factory_Simplified.MazeGameFactory mazegame= new Factory_Simplified.MazeGameFactory();
+            mazegame.createMaze("enchanted");
 
-            Factory.EnchantedMazeGame enchantedgame = new Factory.EnchantedMazeGame();
-            m = enchantedgame.createMaze();
-            enchantedgame.playGame(m);
-            enchantedgame.MagicSpell();
-
-
-            Factory.HauntedMazeGame hauntedgame = new Factory.HauntedMazeGame();
-            m = hauntedgame.createMaze();
-            hauntedgame.playGame(m);
-            hauntedgame.HolySpell();
-
-            Factory.HybridGame hybridgame = new Factory.HybridGame();
-            m = hybridgame.createMaze();
-            hybridgame.playGame(m);
-            hybridgame.HolySpell();
-            hybridgame.MagicSpell();
-
-
+            Console.Write("\nEnd");
+            Console.ReadLine();
         }
 
         private static void callObserver()
@@ -153,11 +143,6 @@ namespace DesignPatterns
             Console.Write("End");
             Console.ReadLine();
 
-        }
-
-        private static void waiting()
-        {
-           //no-op
         }
     }
 }
