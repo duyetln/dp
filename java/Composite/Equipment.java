@@ -17,16 +17,6 @@ public abstract class Equipment implements Iterable<Equipment>
         this.name = name;
     }
 
-    public void add( Equipment equipment ) throws OperationNotSupportedException
-    {
-        throw new OperationNotSupportedException();
-    }
-
-    public void remove( Equipment equipment ) throws OperationNotSupportedException
-    {
-        throw new OperationNotSupportedException();
-    }
-
     @Override
     public Iterator<Equipment> iterator()
     {
@@ -67,14 +57,12 @@ class Bundle extends Equipment
         return price;
     }
 
-    @Override
     public void add( Equipment equipment )
     {
         equipmentList.add( equipment );
         super.price += equipment.price;
     }
 
-    @Override
     public void remove( Equipment equipment )
     {
         equipmentList.remove( equipment );
