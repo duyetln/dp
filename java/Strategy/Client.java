@@ -14,7 +14,13 @@ public class Client
         bnd.add( gcd );
         bnd.add( mbd );
         bnd.add( bnd );
+        Purchase pur = new Purchase(bnd);
 
-        System.out.println( "The net price is " + bnd.price());
+
+        System.out.println( "The net price is " + pur.total());
+
+        pur.pricing = new ComboPricing();
+
+        System.out.println( "The net price is " + pur.total());
     }
 }

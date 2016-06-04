@@ -3,11 +3,9 @@
  */
 
 import javax.naming.OperationNotSupportedException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-public abstract class Equipment implements Iterable<Equipment>
+public abstract class Equipment implements Iterable< Equipment >
 {
     private String name;
     public double price;
@@ -28,9 +26,9 @@ public abstract class Equipment implements Iterable<Equipment>
     }
 
     @Override
-    public Iterator<Equipment> iterator()
+    public Iterator< Equipment > iterator()
     {
-        return new Iterator<Equipment>()
+        return new Iterator< Equipment >()
         {
             @Override
             public boolean hasNext()
@@ -52,36 +50,37 @@ public abstract class Equipment implements Iterable<Equipment>
     }
 }
 
+
 class Bundle extends Equipment
 {
-    private List<Equipment> equipmentList;
-
+    private List< Equipment > equipmentList;
+    
     protected Bundle(String name )
     {
         super( name );
-        equipmentList = new ArrayList<Equipment>();
+        equipmentList = new ArrayList< Equipment >();
     }
-
+    
     double price() {
-
+        
         return price;
     }
-
+    
     @Override
     public void add( Equipment equipment )
     {
         equipmentList.add( equipment );
         super.price += equipment.price;
     }
-
+    
     @Override
     public void remove( Equipment equipment )
     {
         equipmentList.remove( equipment );
     }
-
+    
     @Override
-    public Iterator<Equipment> iterator()
+    public Iterator< Equipment > iterator()
     {
         return equipmentList.iterator();
     }
