@@ -23,12 +23,10 @@ class Maze:
 
 
 class HauntedRoom(Room):
-    def __new__(self):
-        return Room.__new__("Haunted Room")
+    name = "Haunted Room"
 
 class EnchantedWall(Wall):
-    def __new__(self):
-        return Wall.__init__("Enchanted Wall")
+    name = "Enchanted Wall"
 
 
 class MazeGame:
@@ -52,11 +50,11 @@ class MazeGame:
 
 class BasicMazeGame(MazeGame):
     def makeMaze(self):
-        return Maze.__init__("Basic Maze")
+        return Maze()
     def makeRoom(self):
-        return Maze.__init__("Basic Room")
+        return Room()
     def makeWall(self):
-        return Maze.__init__("Basic Wall")
+        return Wall()
   
 
 class HauntedMazeGame(MazeGame):
@@ -93,6 +91,6 @@ class AdaptedMazeGame:
 
 hmg = HauntedMazeGame()
 emg = EnchantedMazeGame()
-amg = AdaptedMazeGame(emg)
+amg = AdaptedMazeGame(emg, hmg)
 
 print(amg.allowMagicSpells)

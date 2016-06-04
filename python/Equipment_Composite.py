@@ -3,12 +3,12 @@
 class Equipment:
     
     def __init__(self, name, price, power):
-    self.name = name
-    self.power = power
-    self.price = price
+        self.name = name
+        self.power = power
+        self.price = price
     
 
-Class CompositeEquipment(Equipment):
+class CompositeEquipment(Equipment):
     Equipment = []
         
     def Power(self):
@@ -21,9 +21,9 @@ Class CompositeEquipment(Equipment):
     def Price(self):
         sum = 0.
         for e in self.Equipment:
-            sum += e.power
-        self.Power = sum
-        return self.Power
+            sum += e.price
+        self.Price = sum
+        return self.Price
 
     def Add(self, e):
         if e not in self.Equipment:
@@ -56,5 +56,5 @@ mbd = Motherboard("EVGA Z710 FTW")
 
 mbd.Add(cpu)
 mbd.Add(gcd)
-print mbd.Power
-print mbd.Price
+print mbd.Power()
+print mbd.Price()

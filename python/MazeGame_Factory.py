@@ -2,9 +2,11 @@ class Room:
     def __init__(self, name="Room"):
         self.name = name
 
+
 class Wall:
     def __init__(self, name="Wall"):
         self.name = name
+
 
 class Maze:
     rooms = []
@@ -23,24 +25,23 @@ class Maze:
 
 
 class HauntedRoom(Room):
-    def __new__(self):
-        return Room.__new__("Haunted Room")
+    name = "Haunted Room"
 
 
 class EnchantedWall(Wall):
-    def __new__(self):
-        return Wall.__init__("Enchanted Wall")
+    name = "Enchanted Wall"
 
 
 class MazeGame:
-
     def __init__(self):
         pass
 
     def makeMaze(self):
         return Maze()
+
     def makeRoom(self):
         return Room()
+
     def makeWall(self):
         return Wall()
 
@@ -51,14 +52,17 @@ class MazeGame:
         m.addWall(self.makeWall())
         m.addWall(self.makeWall())
 
+
 class BasicMazeGame(MazeGame):
     def makeMaze(self):
-        return Maze.__init__("Basic Maze")
+        return Maze()
+
     def makeRoom(self):
-        return Maze.__init__("Basic Room")
+        return Room()
+
     def makeWall(self):
-        return Maze.__init__("Basic Wall")
-  
+        return Wall()
+
 
 class HauntedMazeGame(MazeGame):
     allowHolySpells = True
@@ -68,12 +72,10 @@ class HauntedMazeGame(MazeGame):
 
 
 class EnchantedMazeGame(MazeGame):
-
     allowMagicSpells = True
 
     def makeWall(self):
         return EnchantedWall()
-
 
 
 # Factory Method hybridization solution:
@@ -90,5 +92,6 @@ class CustomMazeGame(BasicMazeGame):
 
 hmg = HauntedMazeGame()
 emg = EnchantedMazeGame()
-hymg = CustomMazeGame(roomType="haunted", wallType="enchanted", spellsAllowed="both")
+hymg = CustomMazeGame()
 
+print hymg.allowHolySpells

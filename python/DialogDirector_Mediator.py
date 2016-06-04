@@ -30,26 +30,27 @@ class EntryField(Widget):
 
 class Button(Widget):
 
-    def Click(self):
+    def click(self):
         print "click"
 
 
 class FontDialogDirector(DialogDirector):
 
-    ok = Button(self)
-    cancel = Button(self)
-    box = ListBox(self)
-    entry = EntryField(self)
+    def __init__(self):
+        self.ok = Button(self)
+        self.cancel = Button(self)
+        self.box = ListBox(self)
+        self.entry = EntryField(self)
 
     def WidgetChanged(self, changedWidget):
         if changedWidget == self.ok:
-            entry.SetList()
+            self.box.SetList()
         elif changedWidget == self.cancel:
-            box.SetList()
+            self.entry.SetText()
 
 
-director = new FrontDialogDirector()
-ok  = director.ok
+director = FontDialogDirector()
+ok = director.ok
 cancel = director.cancel
-ok.click
-cancel.click
+ok.click()
+cancel.click()

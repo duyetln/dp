@@ -13,7 +13,7 @@ class Subject:
         if ob not in self.obs:
             self.obs.append(ob)
 
-    def detach Observer(self, ob):
+    def detachObserver(self, ob):
         if ob in self.obs:
             self.obs.remove(ob)
             
@@ -37,7 +37,7 @@ class ListBox(Observer):
         
     def update(self, ref):
         if ref == self.button:
-            self.setlist()
+            self.setList()
 
 class EntryField(Observer):
     def __init__(self, b):
@@ -46,7 +46,7 @@ class EntryField(Observer):
     def setText(self):
         print "set text"
         
-    def update(ref):
+    def update(self, ref):
         if ref == self.button:
             self.setText()
             
@@ -55,5 +55,5 @@ ok = Button()
 cancel = Button()
 ok.attachObserver(EntryField(ok))
 cancel.attachObserver(ListBox(cancel))
-ok.click
-cancel.click
+ok.click()
+cancel.click()
