@@ -50,6 +50,42 @@ public abstract class Equipment implements Iterable< Equipment >
     }
 }
 
+
+class Bundle extends Equipment
+{
+    private List< Equipment > equipmentList;
+    
+    protected Bundle(String name )
+    {
+        super( name );
+        equipmentList = new ArrayList< Equipment >();
+    }
+    
+    double price() {
+        
+        return price;
+    }
+    
+    @Override
+    public void add( Equipment equipment )
+    {
+        equipmentList.add( equipment );
+        super.price += equipment.price;
+    }
+    
+    @Override
+    public void remove( Equipment equipment )
+    {
+        equipmentList.remove( equipment );
+    }
+    
+    @Override
+    public Iterator< Equipment > iterator()
+    {
+        return equipmentList.iterator();
+    }
+}
+
 class GraphicsCard extends Equipment
 {
     public GraphicsCard(String name )
