@@ -2,28 +2,25 @@
 
 class Equipment:
     
-    def __init__(self, name, price, power):
-        self.name = name
-        self.power = power
+    def __init__(self, name, price):
+        self.Name = name
         self.price = price
-    
+
+    def getPrice(self):
+        return self.price
+
 
 class CompositeEquipment(Equipment):
-    Equipment = []
-        
-    def Power(self):
+    def __init__(self, name):
+        Equipment.__init__(self, name, 0.)
+        self.Equipment = []
+
+    def getPrice(self):
         sum = 0.
         for e in self.Equipment:
-            sum += e.power
-        self.Power = sum
-        return self.Power
-        
-    def Price(self):
-        sum = 0.
-        for e in self.Equipment:
-            sum += e.price
-        self.Price = sum
-        return self.Price
+            sum += e.getPrice()
+        self.price = sum
+        return self.price
 
     def Add(self, e):
         if e not in self.Equipment:
@@ -36,25 +33,38 @@ class CompositeEquipment(Equipment):
 
 class GraphicsCard(Equipment):
    def __init__(self, name):
-       self.name = name
-       self.price = 45.
-       self.power = 120.
+       Equipment.__init__(self, name, 45.)
 
 class CPU(Equipment):
     def __init__(self, name):
-       self.name = name
-       self.price = 75.
-       self.power = 15.
+        Equipment.__init__(self, name, 75.)
 
-class Motherboard(CompositeEquipment):
+
+class Motherboard(Equipment):
     def __init__(self, name):
-        self.name = name
+        Equipment.__init__(self, name, 150.)
 
-cpu = CPU("i7")
-gcd = GraphicsCard("GTX 900")
-mbd = Motherboard("EVGA Z710 FTW")
 
-mbd.Add(cpu)
-mbd.Add(gcd)
-print mbd.Power()
-print mbd.Price()
+
+
+# cpu = CPU("i7")
+# gcd = GraphicsCard("GTX 900")
+# mbd = Motherboard("EVGA Z710 FTW")
+# bnd = CompositeEquipment("PC Building")
+# bnd.Add(cpu)
+# bnd.Add(gcd)
+# bnd.Add(mbd)
+
+# cpu2 = CPU("i9")
+# gcd2 = GraphicsCard("GTX 800")
+# mbd2 = Motherboard("EVGA Perl FTW")
+# bnd2 = CompositeEquipment("PC Building 2")
+# bnd2.Add(cpu2)
+# bnd2.Add(gcd2)
+# bnd2.Add(mbd2)
+
+# superspecial = CompositeEquipment("Two For One Deal")
+# superspecial.Add(bnd)
+# superspecial.Add(bnd2)
+
+# print superspecial.getPrice()
