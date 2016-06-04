@@ -13,7 +13,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 3;
+            int option = 2;
 
             switch(option)
             {
@@ -103,28 +103,11 @@ namespace DesignPatterns
 
         private static void callFactory()
         {
-            Factory.MazeGame game = new Factory.MazeGame();
-            Factory.Maze m = game.createMaze();
-            game.playGame(m);
+            Factory_Simplified.MazeGameFactory mazegame= new Factory_Simplified.MazeGameFactory();
+            mazegame.createMaze("enchanted");
 
-            Factory.EnchantedMazeGame enchantedgame = new Factory.EnchantedMazeGame();
-            m = enchantedgame.createMaze();
-            enchantedgame.playGame(m);
-            enchantedgame.MagicSpell();
-
-
-            Factory.HauntedMazeGame hauntedgame = new Factory.HauntedMazeGame();
-            m = hauntedgame.createMaze();
-            hauntedgame.playGame(m);
-            hauntedgame.HolySpell();
-
-            Factory.HybridGame hybridgame = new Factory.HybridGame();
-            m = hybridgame.createMaze();
-            hybridgame.playGame(m);
-            hybridgame.HolySpell();
-            hybridgame.MagicSpell();
-
-
+            Console.Write("\nEnd");
+            Console.ReadLine();
         }
 
         private static void callObserver()
