@@ -1,15 +1,15 @@
 import scala.collection.mutable.ListBuffer
 
 abstract class Pricing {
-  def price(p : Double) : Double
+  def calculate(p : Double) : Double
 }
 
 class NormalPricing extends Pricing {
-  def price(p : Double) : Double = p
+  def calculate(p : Double) : Double = p
 }
 
 class ComboPricing extends Pricing {
-  def price(p : Double) : Double = p * 0.8
+  def calculate(p : Double) : Double = p * 0.8
 }
 
 abstract class Equipment(val name : String) {
@@ -18,7 +18,7 @@ abstract class Equipment(val name : String) {
 }
 
 class Bundle(name : String) extends Equipment(name) {
-  def price : Double = pricing price (equipments.map(e => e.price).sum)
+  def price : Double = pricing calculate (equipments.map(e => e.price).sum)
   def addEquipment(e : Equipment) {
     if (!(equipments contains e))
       equipments += e
@@ -54,4 +54,7 @@ bnd addEquipment mbd
 println(bnd.price)
 
 bnd.pricing = new ComboPricing
+println(bnd.price)
+
+bnd.pricing = new NormalPricing
 println(bnd.price)
