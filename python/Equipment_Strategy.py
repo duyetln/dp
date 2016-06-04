@@ -30,8 +30,9 @@ class Equipment:
 
 
 class Bundle(Equipment):
-
-    Equipment = []
+    def __init__(self, name):
+        Equipment.__init__(self, name)
+        self.Equipment = []
 
     def price(self):
         sum = 0.
