@@ -2,7 +2,11 @@ import scala.collection.mutable.ListBuffer
 
 class Room(val name : String)
 class Wall(val name : String)
-class Maze(val name : String) {
+
+class HauntedRoom extends Room("Haunted Room")
+class EnchantedWall extends Wall("Enchanted Wall")
+
+abstract class Maze {
   def addRoom(r : Room) {
     if (!(rooms contains r))
       rooms += r
@@ -13,46 +17,54 @@ class Maze(val name : String) {
       walls += w
   }
 
+  def setupRooms
+  def setupWalls
+
   protected val rooms = new ListBuffer[Room]()
   protected val walls = new ListBuffer[Wall]()
 }
 
-class HauntedRoom extends Room("Haunted Room")
+class BasicMaze extends Maze {
+  def setupRooms {
+    addRoom(new Room("Basic Room"))
+  }
 
-class EnchantedWall extends Wall("Enchanted Wall")
+  def setupWalls {
+    addWall(new Wall("Basic Wall"))
+  }
+}
 
-abstract class MazeGame {
-  def makeMaze : Maze
-  def makeRoom : Room
-  def makeWall : Wall
-  def createMaze : Maze = {
-    val m = makeMaze
+trait Haunted extends BasicMaze {
+  override def setupRooms {
+    addRoom(new HauntedRoom())
+    addRoom(new HauntedRoom())
+  }
+}
 
-    m addRoom makeRoom
-    m addRoom makeRoom
-    m addWall makeWall
-    m addWall makeWall
+trait Enchanted extends BasicMaze {
+  override def setupWalls {
+    addWall(new EnchantedWall())
+    addWall(new EnchantedWall())
+    addWall(new EnchantedWall())
+  }
+}
+
+class MazeGame {
+  def createMaze(t : String) : Maze = {
+    var m : Maze = null
+    if (t == "haunted")
+      m = new BasicMaze with Haunted
+    else if (t == "enchanted")
+      m = new BasicMaze with Enchanted
+    else if (t == "hybrid")
+      m = new BasicMaze with Haunted with Enchanted
+    else
+      m = new BasicMaze
+
+    m.setupRooms
+    m.setupWalls
     m
   }
 }
 
-class BasicMazeGame extends MazeGame {
-  def makeMaze : Maze = new Maze("Basic Maze")
-  def makeRoom : Room = new Room("Basic Room")
-  def makeWall : Wall = new Wall("Basic Wall")
-}
-
-trait Haunted extends BasicMazeGame {
-  val allowHolySpells = true
-  override def makeRoom : HauntedRoom = new HauntedRoom
-}
-
-trait Enchanted extends BasicMazeGame {
-  val allowMagicSpells = true
-  override def makeWall : EnchantedWall = new EnchantedWall
-}
-
-val hbmg = new BasicMazeGame with Haunted with Enchanted
-
-println(hbmg.allowHolySpells)
-println(hbmg.allowMagicSpells)
+val maze = (new MazeGame()).createMaze("hybrid")
