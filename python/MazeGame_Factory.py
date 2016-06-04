@@ -79,17 +79,49 @@ class EnchantedMazeGame(MazeGame):
 
 
 # Factory Method hybridization solution:
-class CustomMazeGame(BasicMazeGame):
-   allowHolySpells = True
-   allowMagicSpells = True
-   
-   def makeRoom(self):
-       return HauntedRoom()
-   
-   def makeWall(self):
-       return EnchantedWall()
+class CustomMazeGame:
+    def __init__(self, mazeType=None, roomType=None, wallType=None, spellsAllowed=None):
+        self.mazeType = mazeType
+        self.roomType = roomType
+        self.wallType = wallType
+
+        if spellsAllowed == "haunted":
+            self.allowHolySpells = True
+        elif spellsAllowed == "enchanted":
+            self.allowMagicSpells = True
+        elif spellsAllowed == "both":
+            self.allowHolySpells = True
+            self.allowMagicSpells = True
+        pass
+
+    def makeMaze(self):
+        if self.mazeType == "haunted":
+            return HauntedMaze()
+        elif self.mazeType == "enchanted":
+            return EnchantedMaze()
+        else:
+            return Maze()
+
+    def makeRoom(self):
+        if self.mazeType == "haunted":
+            return HauntedRoom()
+        elif self.mazeType == "enchanted":
+            return EnchantedRoom()
+        else:
+            return Room()
+
+    def makeWall(self):
+        if self.mazeType == "haunted":
+            return HauntedWall()
+        elif self.mazeType == "enchanted":
+            return EnchantedWall()
+        else:
+            return Wall()
 
 
+hmg = HauntedMazeGame()
+emg = EnchantedMazeGame()
+hymg = CustomMazeGame(roomType="haunted", wallType="enchanted", spellsAllowed="both")
 hmg = HauntedMazeGame()
 emg = EnchantedMazeGame()
 hymg = CustomMazeGame()
