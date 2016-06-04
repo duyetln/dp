@@ -49,7 +49,7 @@ trait Enchanted extends BasicMaze {
   }
 }
 
-class MazeGame {
+object MazeGame {
   def createMaze(t : String) : Maze = {
     var m : Maze = null
     if (t == "haunted")
@@ -67,4 +67,4 @@ class MazeGame {
   }
 }
 
-val maze = (new MazeGame()).createMaze("hybrid")
+val maze = MazeGame.createMaze("hybrid")
