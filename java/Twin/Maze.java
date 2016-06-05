@@ -37,7 +37,6 @@ class HauntedMazeGame extends BasicMazeGame implements HolySpell
     public void setupRooms()
     {
         addRoom(new HauntedRoom());
-        addRoom(new HauntedRoom());
     }
 
     @Override
@@ -50,8 +49,6 @@ class EnchantedMazeGame extends BasicMazeGame implements MagicSpell
 {
     public void setupWalls()
     {
-        addWall(new EnchantedWall());
-        addWall(new EnchantedWall());
         addWall(new EnchantedWall());
     }
 
@@ -73,22 +70,14 @@ class HybridMazeGame extends EnchantedMazeGame implements MagicSpell
     public void setupRooms()
     {
         twin.setupRooms();
-        twin.setupRooms();
     }
 
     public void setupWalls()
     {
         addWall(new EnchantedWall());
-        addWall(new EnchantedWall());
-        addWall(new EnchantedWall());
     }
 
     public void setHolySpell() {
         twin.setHolySpell();
-    }
-
-    public void setMagicSpell() {
-        System.out.println("Hybrid:");
-        System.out.println("Setting a magic spell!");
     }
 }
