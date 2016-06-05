@@ -35,8 +35,10 @@ class Motherboard(name : String) extends Equipment(name) {
 val cpu = new CPU("i7")
 val gcd = new GraphicCard("GTX 900")
 val mbd = new Motherboard("EVGA Z710 FTW")
-val bnd = new Bundle("PC Building")
-bnd addEquipment cpu
-bnd addEquipment gcd
-bnd addEquipment mbd
-println(bnd.price)
+val b1 = new Bundle("PC Building")
+val b2 = new Bundle("Gaming PC Building")
+b1 addEquipment cpu
+b1 addEquipment mbd
+b2 addEquipment b1
+b2 addEquipment gcd
+println(b2.price)
