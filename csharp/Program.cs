@@ -6,7 +6,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 3;
+            int option = 4;
 
             switch(option)
             {
@@ -69,13 +69,15 @@ namespace DesignPatterns
             Composite.CPU cp = new Composite.CPU("i7");
             Composite.GraphicCard gc = new Composite.GraphicCard("GTX 900");
             Composite.MotherBoard mb = new Composite.MotherBoard("EVGA Z710 FTW");
-            Composite.Bundle b = new Composite.Bundle("Bundle ");
+            Composite.Bundle b1 = new Composite.Bundle("PC Bundle ");
+            Composite.Bundle b2 = new Composite.Bundle("PC Bundle 2");
 
-            b.addEquipment(cp);
-            b.addEquipment(gc);
-            b.addEquipment(mb);
+            b1.addEquipment(cp);
+            b1.addEquipment(mb);
+            b2.addEquipment(b1);
+            b2.addEquipment(gc);
 
-            Console.Write("\nBundle price:" + b.price);
+            Console.Write("\nBundle price:" + b2.price);
 
             Console.Write("\nEnd");
             Console.ReadLine();
