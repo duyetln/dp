@@ -26,5 +26,8 @@
 	(print (listB *box*))	;modify any of the data in ListBox here
 )
 (defmethod click (button "cancel")
-	(print (text *entry))	;modify any of the data in EntryField here
+	(print (text *entry*))	;modify any of the data in EntryField here
 )
+
+;(click "ok")
+;(click "cancel")
