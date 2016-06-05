@@ -39,18 +39,5 @@ namespace DesignPatterns.Strategy
                 return total;
             }
         }
-
-        internal Pricing Pricing
-        {
-            get
-            {
-                return pricing;
-            }
-
-            set
-            {
-                pricing = value;
-            }
-        }
     }
 }
