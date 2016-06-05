@@ -1,7 +1,6 @@
 (defclass Equipment ()
 	((price
 		:initarg :price
-		:initform 0
 		:reader price)
 	)
 )
@@ -18,12 +17,19 @@
 	)
 )
 
+(defclass Motherboard (Equipment)
+	((price
+		:initform 150)	
+	)
+)
+
 (defparameter *cpu* (make-instance 'CPU))
 (defparameter *graphicCard* (make-instance 'GraphicCard))
-(defparameter *motherBoard* (list *cpu* *graphicCard*))
+(defparameter *motherBoard* (make-instance 'Motherboard))
+(defparameter *Bundle* (list *cpu* *graphicCard* *motherBoard*))
 
-(defun totalPrice (list)
-	(if (cdr list) (+ (price (car list)) (totalPrice (cdr list)) )  (price (car list)) )
+(defun totalPrice (lst)
+	(if (cdr lst) (+ (price (car lst)) (totalPrice (cdr lst)) )  (price (car lst)) )
 )
 
 ;(totalPrice (list *cpu*))

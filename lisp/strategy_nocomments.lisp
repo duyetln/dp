@@ -1,35 +1,47 @@
 (defclass Equipment ()
-	((power
+	((price
 		:initarg :power
-		:initform 0
-		:reader power)		
+		:reader price)		
 	)
 )
 
 (defclass GraphicCard (Equipment)
-	((power
-		:initform 120)	
+	((price
+		:initform 45)	
 	)
 )
 
 (defclass CPU (Equipment)
-	((power
-		:initform 15)	
+	((price
+		:initform 75)	
+	)
+)
+
+(defclass Motherboard (Equipment)
+	((price
+		:initform 150)	
 	)
 )
 
 (defparameter *cpu* (make-instance 'CPU))
 (defparameter *graphicCard* (make-instance 'GraphicCard))
-(defparameter *motherBoard* (list *cpu* *graphicCard*))
+(defparameter *motherBoard* (make-instance 'Motherboard))
+(defparameter *Bundle* (list *cpu* *graphicCard* *motherBoard*))
 
-(defun normalPrice (list)
-	(if (cdr list) (+ (price (car list)) (totalPrice (cdr list)) )  (price (car list)) )
+
+(defun oneItemPrice (lst)
+	(price (car lst)) 
 )
 
-(defun comboPrice (list)
-	(* 0.8 (if (cdr list) (+ (price (car list)) (totalPrice (cdr list)) )  (price (car list)) ))
+(defun twoItemPrice (lst)
+	(if (cdr lst) 
+		(if (> (car lst) (twoItemPrice (cdr lst))) (price car lst) (twoItemPrice (cdr lst) )) 
+		(price (car lst)))
 )
 
-;(totalPower (list *cpu*))
-;(totalPower (list *graphicCard*))
-;(totalPower *motherBoard*)
+(defun BundlePrice (lst)
+	(if (cdr lst) (+ (price (car lst)) (totalPrice (cdr lst)) )  (price (car lst)) )
+)
+
+;(oneItemPrice (list *cpu*))
+;(BundlePrice *motherBoard*)
