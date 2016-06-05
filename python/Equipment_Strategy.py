@@ -58,6 +58,7 @@ class Purchase:
         else:
             return bundlePricing(self.Equipment)
 
+####################################################
 
 cpu = CPU("i7")
 gcd = GraphicsCard("GTX 900")
