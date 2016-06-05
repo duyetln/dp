@@ -9,6 +9,8 @@ C#:
   - Factory cannot be played directly, as create Factory creates a simple factory.
 
 Java:
+  - Each Java folder is self-contained and contains a client class.
+  - Simply run the client class to execute code.  
 
 Python:
   - Each Python file is a self-contained project, complete with all necessary class and method definitions
