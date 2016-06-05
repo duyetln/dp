@@ -9,11 +9,11 @@ C#:
   - Factory cannot be played directly, as create Factory creates a simple factory.
 
 Java:
+
+Python:
   - Each Python file is a self-contained project, complete with all necessary class and method definitions
   - Near the end of each file, there is line consisting of only "#"; illustrative client-esque usage of the program follows this line
   - Running a given file will result in the interpretation of the source code as invoked by the "client" lines
-
-Python:
 
 Scala:
   - Change current directory to the scala directory.
