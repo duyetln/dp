@@ -1,4 +1,6 @@
-The entire C# code is to be compiled and run as a single project is VS.
+The entire C# code is to be compiled and run as a single project in VS.
+
+The attached dgmal is an interactive codemap for teh entire project.
 
 Factory_Simplified and Twin_Simplified are used for comparisons across languages.
 

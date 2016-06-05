@@ -1,23 +1,27 @@
-package com.georgef.javaobserver;
+import java.util.List;
 
 /**
  * Created by georgef on 5/25/16.
  */
-public class ListBox extends Widget
+public class ListBox implements Observer
 {
-    public ListBox( DialogDirector director )
+    Button button;
+
+    public ListBox(Button button)
     {
-        super( director );
+        this.button = button;
     }
 
-    @Override
-    public void handleMouse( MouseEvent event )
+    public void setList()
     {
-        super.handleMouse( event );
+        System.out.println("setList");
     }
 
-    public String getSelection()
+    public void update(Subject subject)
     {
-        return null;
+        if (subject == button)
+        {
+            setList();
+        }
     }
 }

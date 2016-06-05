@@ -56,17 +56,6 @@ class MazeGame:
         return m
 
 
-class BasicMazeGame(MazeGame):
-    def makeMaze(self):
-        return Maze()
-
-    def makeRoom(self):
-        return Room()
-
-    def makeWall(self):
-        return Wall()
-
-
 class HauntedMazeGame(MazeGame):
     allowHolySpells = True
 

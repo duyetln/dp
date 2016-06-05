@@ -1,33 +1,35 @@
 (defclass Equipment ()
-	((price
-		:initarg :price
+	((power
+		:initarg :power
 		:initform 0
-		:reader price)
+		:reader power)		
 	)
 )
 
 (defclass GraphicCard (Equipment)
-	((price
-		:initform 45)
+	((power
+		:initform 120)	
 	)
 )
 
 (defclass CPU (Equipment)
-	((price
-		:initform 75)
+	((power
+		:initform 15)	
 	)
 )
 
-;All composites and individuals passed as lists, all elements in lists can be grabbed the same way
 (defparameter *cpu* (make-instance 'CPU))
 (defparameter *graphicCard* (make-instance 'GraphicCard))
 (defparameter *motherBoard* (list *cpu* *graphicCard*))
 
-(defun totalPrice (list)
+(defun normalPrice (list)
 	(if (cdr list) (+ (price (car list)) (totalPrice (cdr list)) )  (price (car list)) )
 )
 
-;Make sure to pass in a list
-(totalPrice (list *cpu*))
-(totalPrice (list *graphicCard*))
-(totalPrice *motherBoard*)
+(defun comboPrice (list)
+	(* 0.8 (if (cdr list) (+ (price (car list)) (totalPrice (cdr list)) )  (price (car list)) ))
+)
+
+;(totalPower (list *cpu*))
+;(totalPower (list *graphicCard*))
+;(totalPower *motherBoard*)

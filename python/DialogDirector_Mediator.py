@@ -3,7 +3,6 @@
 class DialogDirector:
 
     def WidgetChanged(self, Widget):
-        # do a thing based on widget change
         pass
 
 

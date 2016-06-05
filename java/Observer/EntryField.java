@@ -1,30 +1,25 @@
-package com.georgef.javaobserver;
-
 /**
  * Created by georgef on 5/25/16.
  */
-public class EntryField extends Widget
+public class EntryField implements Observer
 {
-    private String text;
+    Button button;
 
-    public EntryField( DialogDirector director )
+    public EntryField(Button button)
     {
-        super( director );
+        this.button = button;
     }
 
-    public String getText()
+    public void setText()
     {
-        return text;
+        System.out.println("setText");
     }
 
-    public void setText( String text )
+    public void update(Subject subject)
     {
-        this.text = text;
-    }
-
-    @Override
-    public void handleMouse( MouseEvent event )
-    {
-        super.handleMouse( event );
+        if (subject == button)
+        {
+            setText();
+        }
     }
 }

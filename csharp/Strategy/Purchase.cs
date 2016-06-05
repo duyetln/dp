@@ -1,14 +1,22 @@
-﻿namespace DesignPatterns.Strategy
+﻿using System.Collections.Generic;
+
+namespace DesignPatterns.Strategy
 {
     class Purchase
     {
-        Equipment el;
+        List<Equipment> el = new List<Equipment>();
         Pricing pricing;
-        double total;
+        double total = 0;
 
         public Purchase(Equipment e)
         {
-            el = e;
+            el.Add(e);
+            pricing = new NormalPricing();
+        }
+
+        public void addPurchase(Equipment e)
+        {
+            el.Add(e);
             pricing = new NormalPricing();
         }
 
@@ -16,7 +24,20 @@
         {
             get
             {
-                return pricing.calculate(el.price);
+                total = 0;
+                foreach (Equipment x in el)
+                {
+                    if (x.GetType().Name.Equals("Bundle"))
+                    {
+                        pricing = new ComboPricing();
+                    }
+                    else
+                    {
+                        pricing = new NormalPricing();
+                    }
+                    total = total + pricing.calculate(x.price);                    
+                }
+              return total;
             }
         }
 

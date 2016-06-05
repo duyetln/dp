@@ -2,31 +2,28 @@
 
 namespace DesignPatterns.Mediator
 { 
-    /// <summary>
-    /// The 'ConcreteSubject' class
-    /// </summary>
-    class Widget
+    abstract class WidgetMediator
     {
-        private DialogDirector _director;
+        public abstract void widgetChanged(Widget widget);
+    }
 
-        public Widget(DialogDirector d)
+    
+    abstract class Widget
+    {
+        private WidgetMediator _director;
+
+        public Widget(WidgetMediator d)
         {
             _director = d;
         }
 
-        protected void Click()
-        {
-            Console.WriteLine("Click!");
-
-        }
-
         protected void onChange()
         {
-        _director.onChange(this);
+            _director.widgetChanged(this);
         }
 
         // Gets or sets subject state
-        public DialogDirector SubjectState
+        public WidgetMediator Mediator
         {
             get { return _director; }
             set { _director = value; }
@@ -35,98 +32,89 @@ namespace DesignPatterns.Mediator
 
     class EntryField : Widget
     {
-        private string text;
+        public EntryField(WidgetMediator d) : base(d) { }
 
-        public EntryField(DialogDirector d) : base(d) { }
-
-        public string Text
+        public void setText(string newText)
         {
-            get
-            {
-                return text;
-            }
-
-            set
-            {
-                text = value;
-            }
-        }
-
-        public new void Click()
-        {
-            onChange();
-            base.Click();
+            Console.Out.WriteLine("Set Text in EntryField from " + newText);
         }
     }
 
+    class ListBox : Widget
+    {
+        public ListBox(WidgetMediator d) : base(d) { }
+
+        public void setList(string newText)
+        {
+            Console.Out.WriteLine("Set List in ListBox from " + newText);
+        }
+    }
+
+
+
     class Button : Widget
     {
-        public Button(DialogDirector d) : base(d) { }
+        public Button(WidgetMediator wm) : base(wm) { }
 
-        public new void Click()
+        public void Click()
         {
             onChange();
-            base.Click();
         }
     }
 
     
-    abstract class DialogDirector
-    {
-        public abstract void createWidget();
-
-        public abstract void onChange(Widget widget);
-    }
-
-
-
-    class FontDialogDirector : DialogDirector
+    class FrontDialogDirector : WidgetMediator
     {
         private Button _ok;
         private Button _cancel;
         private EntryField _fontList;
+        private ListBox _listbox;
 
-        public override void onChange(Widget changed)
-    {
-            if (changed == _ok)
+        internal Button Ok
+        {
+            get
             {
-                Console.Write("Changed List");
-            }
-            else if (changed == _cancel)
-            {
-                Console.Write("Cancel List");
-            }
-            else if (changed == _fontList)
-            {
-                Console.Write("Set value for the List");
-            }
-            else
-            {
-                Console.Write("Unknown op");
+                return _ok;
             }
 
+            set
+            {
+                _ok = value;
+            }
         }
 
-        public override void createWidget()
+        internal Button Cancel
         {
-            this._ok = new Button(this);
-            this._cancel = new Button(this);
-            this._fontList = new EntryField(this);
+            get
+            {
+                return _cancel;
+            }
+
+            set
+            {
+                _cancel = value;
+            }
         }
 
-        public void pressOk()
+        public FrontDialogDirector()
         {
-            _ok.Click();
+            Ok = new Button(this);
+            Cancel = new Button(this);
+            _fontList = new EntryField(this);
+            _listbox = new ListBox(this);
         }
 
-        public void pressCancel()
-        {
-            _cancel.Click();
-        }
 
-        public void openFontList()
+        public override void widgetChanged(Widget changedWidget)
         {
-            _fontList.Click();
+            if(changedWidget == Ok)
+            {
+                _fontList.setText("Ok");
+            }
+            else if(changedWidget == Cancel)
+            {
+                _listbox.setList("Cancel");
+            }
         }
     }
 }

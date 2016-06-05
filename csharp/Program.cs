@@ -6,7 +6,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 4;
+            int option = 1;
 
             switch(option)
             {
@@ -60,11 +60,7 @@ namespace DesignPatterns
             b.addEquipment(mb);
             Strategy.Purchase p = new Strategy.Purchase(b);
 
-            p.Pricing = new Strategy.NormalPricing();
-            Console.Write("\nNormal Pricing:" + p.Total);
-
-            p.Pricing = new Strategy.ComboPricing();
-            Console.Write("\nCombo Pricing:" + p.Total);
+            Console.Write("\nPricing:" + p.Total);
 
             Console.Write("\nEnd");
             Console.ReadLine();
@@ -119,13 +115,14 @@ namespace DesignPatterns
 
         private static void callObserver()
         {
-            Observer.FontDialogDirector d = new Observer.FontDialogDirector();
-            d.createWidget();
+            Observer.Button ok = new Observer.Button();
+            Observer.Button cancel = new Observer.Button();
 
-            d.openFontList();
-            d.pressOk();
-            d.pressCancel();
-            
+            ok.Attach(new Observer.EntryField());
+            cancel.Attach(new Observer.ListBox());
+
+            ok.Click();
+            cancel.Click();
 
             Console.Write("\nEnd");
             Console.ReadLine();
@@ -133,12 +130,12 @@ namespace DesignPatterns
 
         private static void callMediator()
         {
-            Mediator.FontDialogDirector d = new Mediator.FontDialogDirector();
-            d.createWidget();
-            d.openFontList();
-            d.pressOk();
-            d.pressCancel();
+            Mediator.FrontDialogDirector d = new Mediator.FrontDialogDirector();
+            Mediator.Button ok = d.Ok;
+            Mediator.Button cancel = d.Cancel;
 
+            ok.Click();
+            cancel.Click();
 
             Console.Write("End");
             Console.ReadLine();

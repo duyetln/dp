@@ -1,20 +1,11 @@
-package com.georgef.javaobserver;
-
 /**
  * Created by georgef on 5/25/16.
  */
-public class Button extends Widget
+public class Button extends Subject
 {
-
-    public Button( DialogDirector director )
+    public void click()
     {
-        super( director );
-    }
-
-
-    @Override
-    public void handleMouse( MouseEvent event )
-    {
-        changed();
+        System.out.println("click");
+        notifyObservers();
     }
 }

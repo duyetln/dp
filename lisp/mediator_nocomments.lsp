@@ -17,9 +17,12 @@
 (defparameter *entry* (make-instance 'EntryField))
 
 (defgeneric click (button))
-(defmethod click (button "ok")-
+(defmethod click (button "ok")
 	(print (listB *box*))	;modify any of the data in ListBox here
 )
 (defmethod click (button "cancel")
-	(print (text *entry))	;modify any of the data in EntryField here
+	(print (text *entry*))	;modify any of the data in EntryField here
 )
+
+;(click "ok")
+;(click "cancel")

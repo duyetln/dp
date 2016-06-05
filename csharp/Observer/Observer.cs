@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace DesignPatterns.Observer
 {
-    /// <summary>
-    /// The 'Subject' abstract class
-    /// </summary>
+    abstract class Observer
+    {
+        public abstract void Update(Subject name);//String arg
+    }
+
     abstract class Subject
     {
         private List<Observer> _observers = new List<Observer>();
@@ -29,144 +31,40 @@ namespace DesignPatterns.Observer
         }
     }
 
-    /// <summary>
-    /// The 'ConcreteSubject' class
-    /// </summary>
-    class Widget : Subject
+    class Button : Subject
     {
-        private DialogDirector _director;
-
-        public Widget(DialogDirector d)
-        {
-            _director = d;
-        }
-
-        protected void Click()
-        {
-            Console.WriteLine("Click!");
-      
-        }
-
-        protected void onChange()
+        public void Click()
         {
             base.Notify();
         }
-
-        // Gets or sets subject state
-        public DialogDirector SubjectState
-        {
-            get { return _director; }
-            set { _director = value; }
-        }
     }
 
-    class EntryField : Widget
+    class ListBox : Observer
     {
-        private string text;
-
-        public EntryField(DialogDirector d) : base(d) { }
-
-        public string Text
+        public void setList()
         {
-            get
-            {
-                return text;
-            }
-
-            set
-            {
-                text = value;
-            }
+            Console.Out.WriteLine("Listbox updated from Button");
         }
 
-        public new void Click()
+        public override void Update(Subject subject)
         {
-            onChange();
-            base.Click();
+            if (subject.GetType().Name.Equals("Button"))
+                setList();
         }
     }
 
-    class Button: Widget
+    class EntryField : Observer
     {
-        public Button(DialogDirector d) : base(d) { }
-
-        public new void Click()
+        public void setText()
         {
-            onChange();
-            base.Click();
+            Console.Out.WriteLine("EntryField updated from Button");
+        }
+
+        public override void Update(Subject subject)
+        {
+            if (subject.GetType().Name.Equals("Button"))
+                setText();
         }
     }
 
-    /// <summary>
-    /// The 'Observer' abstract class
-    /// </summary>
-    abstract class Observer
-    {
-        public abstract void Update(Subject name);//String arg
-    }
-
-    /// <summary>
-    /// The 'ConcreteObserver' class
-    /// </summary>
-    abstract class DialogDirector : Observer
-    {
-        public abstract void createWidget();
-    }
-
-    class FontDialogDirector : DialogDirector
-    { 
-        private Button _ok;
-        private Button _cancel;
-        private EntryField _fontList;
-
-        public override void Update(Subject changed)
-        {
-            if(changed == _ok)
-            {
-                Console.Write("Changed List");
-            }
-            else if (changed == _cancel)
-            {
-                Console.Write("Cancel List");
-            }
-            else if (changed == _fontList)
-            {
-                Console.Write("Set value for the List");
-            }
-            else
-            {
-                Console.Write("Unknown op");
-            }
-
-        }
-
-        public override void createWidget()
-        {
-            this._ok = new Button(this);
-            this._cancel = new Button(this);
-            this._fontList = new EntryField(this);
-
-            //Attch observers
-            this._ok.Attach(this);
-            this._cancel.Attach(this);
-            this._fontList.Attach(this);
-        }
-
-        public void pressOk()
-        {
-            _ok.Click();
-        }
-
-        public void pressCancel()
-        {
-            _cancel.Click();
-        }
-
-        public void openFontList()
-        {
-            _fontList.Click();
-        }
-    }
-
-    
 }

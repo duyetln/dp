@@ -1,5 +1,3 @@
-package com.georgef.javaobserver;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public abstract class Subject
         observers.remove( observer );
     }
 
-    public void notifySubject()
+    public void notifyObservers()
     {
         for( Observer observer : observers )
         {
