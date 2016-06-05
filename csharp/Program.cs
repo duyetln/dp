@@ -6,7 +6,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 5;
+            int option = 1;
 
             switch(option)
             {
@@ -115,13 +115,14 @@ namespace DesignPatterns
 
         private static void callObserver()
         {
-            Observer.FontDialogDirector d = new Observer.FontDialogDirector();
-            d.createWidget();
+            Observer.Button ok = new Observer.Button();
+            Observer.Button cancel = new Observer.Button();
 
-            d.openFontList();
-            d.pressOk();
-            d.pressCancel();
-            
+            ok.Attach(new Observer.EntryField());
+            cancel.Attach(new Observer.ListBox());
+
+            ok.Click();
+            cancel.Click();
 
             Console.Write("\nEnd");
             Console.ReadLine();
