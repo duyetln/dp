@@ -5,39 +5,38 @@ namespace DesignPatterns.Strategy
     class Purchase
     {
         List<Equipment> el = new List<Equipment>();
-        Pricing pricing;
+        Pricing pricing = new OneItemPricing();
         double total = 0;
-
-        public Purchase(Equipment e)
-        {
-            el.Add(e);
-            pricing = new NormalPricing();
-        }
 
         public void addPurchase(Equipment e)
         {
             el.Add(e);
-            pricing = new NormalPricing();
+        }
+
+        public void removePurchase(Equipment e)
+        {
+            el.Remove(e);
         }
 
         public double Total
         {
             get
             {
-                total = 0;
-                foreach (Equipment x in el)
+
+                if (el.Count >2)
                 {
-                    if (x.GetType().Name.Equals("Bundle"))
-                    {
-                        pricing = new ComboPricing();
-                    }
-                    else
-                    {
-                        pricing = new NormalPricing();
-                    }
-                    total = total + pricing.calculate(x.price);                    
+                    pricing = new BundlePricing();
                 }
-              return total;
+                else if (el.Count > 1)
+                {
+                    pricing = new TwoItemPricing();
+                }
+                else
+                {
+                    pricing = new OneItemPricing();
+                }
+                total = total + pricing.calculate(el);  
+                return total;
             }
         }
 

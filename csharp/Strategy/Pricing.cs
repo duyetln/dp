@@ -1,23 +1,34 @@
-﻿namespace DesignPatterns.Strategy
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace DesignPatterns.Strategy
 {
     abstract class Pricing
     {
-        abstract public double calculate(double price);
+        abstract public double calculate(List<Equipment> e);
     }
 
-    class NormalPricing : Pricing
+    class OneItemPricing : Pricing
     {
-        public override double calculate(double price)
+        public override double calculate(List<Equipment> e)
         {
-            return price;
+            return e.Sum(r => r.price);
         }
     }
 
-    class ComboPricing : Pricing
+    class TwoItemPricing : Pricing
     {
-        public override double calculate(double price)
+        public override double calculate(List<Equipment> e)
         {
-            return (price * 0.8);
+            return e.Max(r => r.price);
+        }
+    }
+
+    class BundlePricing : Pricing
+    {
+        public override double calculate(List<Equipment> e)
+        {
+            return e.Sum(r => r.price)*0.7;
         }
     }
 }

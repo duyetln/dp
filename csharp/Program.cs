@@ -6,7 +6,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 1;
+            int option = 3;
 
             switch(option)
             {
@@ -53,12 +53,10 @@ namespace DesignPatterns
             Strategy.CPU cp = new Strategy.CPU("i7");
             Strategy.GraphicCard gc = new Strategy.GraphicCard("GTX 900");
             Strategy.MotherBoard mb = new Strategy.MotherBoard("EVGA Z710 FTW");
-            Strategy.Bundle b = new Strategy.Bundle("Bundle ");
-
-            b.addEquipment(cp);
-            b.addEquipment(gc);
-            b.addEquipment(mb);
-            Strategy.Purchase p = new Strategy.Purchase(b);
+            Strategy.Purchase p = new Strategy.Purchase();
+            p.addPurchase(cp);
+            p.addPurchase(gc);
+            p.addPurchase(mb);
 
             Console.Write("\nPricing:" + p.Total);
 

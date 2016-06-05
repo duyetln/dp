@@ -14,28 +14,6 @@ namespace DesignPatterns.Strategy
         }
     }
 
-    class Bundle : Equipment
-    {
-        private List<Equipment> elist;
-
-        public Bundle(String name) : base(name)
-        {
-            elist = new List<Equipment>();
-        }
-
-        public void addEquipment(Equipment e)
-        {
-            elist.Add(e);
-            base.price += e.price;
-        }
-
-        public void removeEquipment(Equipment e)
-        {
-            elist.Remove(e);
-            base.price += e.price;
-        }
-    }
-
     class GraphicCard : Equipment
     {
         public GraphicCard(string name) : base(name)
