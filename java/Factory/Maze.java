@@ -61,7 +61,7 @@ class EnchantedMazeGame extends BasicMazeGame implements MagicSpell
     }
 }
 
-class HybridMazeGame extends BasicMazeGame implements HolySpell
+class HybridMazeGame extends BasicMazeGame implements HolySpell, MagicSpell
 {
     public void setupRooms()
     {
