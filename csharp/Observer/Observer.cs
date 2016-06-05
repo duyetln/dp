@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DesignPatterns.Observer
 {
@@ -24,10 +25,7 @@ namespace DesignPatterns.Observer
 
         public void Notify()
         {
-            foreach (Observer o in _observers)
-            {
-                o.Update(this);
-            }
+            _observers.ForEach(p => p.Update(this));         
         }
     }
 
