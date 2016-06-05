@@ -72,11 +72,6 @@ class HybridMazeGame extends EnchantedMazeGame implements MagicSpell
         twin.setupRooms();
     }
 
-    public void setupWalls()
-    {
-        addWall(new EnchantedWall());
-    }
-
     public void setHolySpell() {
         twin.setHolySpell();
     }
