@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DesignPatterns.Composite
 {
@@ -18,6 +19,14 @@ namespace DesignPatterns.Composite
     {
         private List<Equipment> elist;
 
+        public new double price
+        {
+            get
+            {
+                return elist.Sum(r => r.price); ;
+            }
+        }
+
         public Bundle(String name) : base(name)
         {
             elist = new List<Equipment>();
@@ -26,13 +35,11 @@ namespace DesignPatterns.Composite
         public void addEquipment(Equipment e)
         {
             elist.Add(e);
-            base.price += e.price;
         }
 
         public void removeEquipment(Equipment e)
         {
             elist.Remove(e);
-            base.price += e.price;
         }
     }
 
