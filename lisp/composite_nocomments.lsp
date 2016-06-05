@@ -1,20 +1,20 @@
 (defclass Equipment ()
-	((power
-		:initarg :power
+	((price
+		:initarg :price
 		:initform 0
-		:reader power)		
+		:reader price)
 	)
 )
 
 (defclass GraphicCard (Equipment)
-	((power
-		:initform 120)	
+	((price
+		:initform 45)
 	)
 )
 
 (defclass CPU (Equipment)
-	((power
-		:initform 15)	
+	((price
+		:initform 75)
 	)
 )
 
@@ -26,6 +26,6 @@
 	(if (cdr list) (+ (price (car list)) (totalPrice (cdr list)) )  (price (car list)) )
 )
 
-(totalPower (list *cpu*))
-(totalPower (list *graphicCard*))
-(totalPower *motherBoard*)
+;(totalPrice (list *cpu*))
+;(totalPrice (list *graphicCard*))
+;(totalPrice *motherBoard*)
