@@ -1,27 +1,6 @@
 """Implementation of Equipment Program using Strategy design pattern"""
 
-
-class Pricing:
-
-    def __init__(self):
-        pass
-
-    def calculate(self, p):
-        pass
-
-
-class NormalPricing(Pricing):
-    def calculate(self, p):
-        return p
-
-
-class ComboPricing(Pricing):
-    def calculate(self, p):
-        return 0.8*p
-
-
 class Equipment:
-
     def __init__(self, name):
         self.name = name
 
@@ -29,24 +8,20 @@ class Equipment:
         pass
 
 
-class Bundle(Equipment):
-    def __init__(self, name):
-        Equipment.__init__(self, name)
-        self.Equipment = []
+def normalPrice(e):
+    return e[0].price()
 
-    def price(self):
-        sum = 0.
-        for e in self.Equipment:
-            sum += e.price()
-        return sum
+def twoForOnePrice(e):
+    if e[0].price() > e[1].price():
+        return e[0].price()
+    else:
+        return e[1].price()
 
-    def addEquipment(self, e):
-        if e not in self.Equipment:
-            self.Equipment.append(e)
-
-    def removeEquipment(self, e):
-        if e in self.Equipment:
-            self.Equipment.remove(e)
+def bundlePricing(e):
+    sum = 0.
+    for i in e:
+        sum += i.price()
+    return sum*0.8
 
 
 class GraphicsCard(Equipment):
@@ -63,26 +38,36 @@ class Motherboard(Equipment):
 
 
 class Purchase:
+    def __init__(self, name):
+        self.name = name
+        self. Equipment = []
 
-    def __init__(self, equipment):
-        self.equipment = equipment
-        if isinstance(equipment, Bundle):
-            self.pricing = ComboPricing()
-        else:
-            self.pricing = NormalPricing()
+    def addEquipment(self, e):
+        if e not in self.Equipment:
+            self.Equipment.append(e)
+
+    def removeEquipment(self, e):
+        if e in self.Equipment:
+            self.Equipment.remove(e)
 
     def total(self):
-        return self.pricing.calculate(self.equipment.price())
+        if len(self.Equipment) == 1:
+            return normalPrice(self.Equipment)
+        elif len(self.Equipment) == 2:
+            return twoForOnePrice(self.Equipment)
+        else:
+            return bundlePricing(self.Equipment)
 
 
 cpu = CPU("i7")
 gcd = GraphicsCard("GTX 900")
 mbd = Motherboard("EVGA Z710 FTW")
-bnd = Bundle("PC Building")
 
-bnd.addEquipment(cpu)
-bnd.addEquipment(gcd)
-bnd.addEquipment(mbd)
-pur = Purchase(bnd)
+pur = Purchase("My PC Build")
+
+pur.addEquipment(cpu)
+pur.addEquipment(gcd)
+pur.addEquipment(mbd)
 
 print pur.total()
+
