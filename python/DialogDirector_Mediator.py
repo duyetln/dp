@@ -49,6 +49,8 @@ class FontDialogDirector(DialogDirector):
             self.entry.SetText()
 
 
+###############################################
+
 director = FontDialogDirector()
 ok = director.ok
 cancel = director.cancel
