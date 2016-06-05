@@ -1,35 +1,19 @@
 import scala.collection.mutable.ListBuffer
 
-abstract class Pricing {
-  def calculate(p : Double) : Double
-}
-
-class NormalPricing extends Pricing {
-  def calculate(p : Double) : Double = p
-}
-
-class ComboPricing extends Pricing {
-  def calculate(p : Double) : Double = p * 0.8
-}
-
 abstract class Equipment(val name : String) {
   def price : Double
 }
 
-// Composite equipment
-class Bundle(name : String) extends Equipment(name) {
-  def price : Double = equipments.map(e => e.price).sum
-  def addEquipment(e : Equipment) {
-    if (!(equipments contains e))
-      equipments += e
-  }
+object OneItemPricing {
+  def calculate(l : ListBuffer[Equipment]) : Double = l(0).price
+}
 
-  def removeEquipment(e : Equipment) {
-    if (equipments contains e)
-      equipments -= e
-  }
+object TwoItemsPricing {
+  def calculate(l : ListBuffer[Equipment]) : Double = l.map(e => e.price).max
+}
 
-  protected val equipments = new ListBuffer[Equipment]()
+object BundlePricing {
+  def calculate(l : ListBuffer[Equipment]) : Double = l.map(e => e.price).sum
 }
 
 class GraphicCard(name : String) extends Equipment(name) {
@@ -44,24 +28,40 @@ class Motherboard(name : String) extends Equipment(name) {
   def price : Double = 150
 }
 
-class Purchase(val equipment : Equipment) {
-  var pricing : Pricing = new NormalPricing
-  def total = pricing calculate (equipment.price)
-}
+class Purchase {
+  def addEquipment(e : Equipment) {
+    if (!(equipments contains e))
+      equipments += e
+  }
 
+  def removeEquipment(e : Equipment) {
+    if (equipments contains e)
+      equipments -= e
+  }
+
+  def price : Double = {
+    if (equipments.size > 2)
+      BundlePricing.calculate(equipments)
+    else if (equipments.size > 1)
+      TwoItemsPricing.calculate(equipments)
+    else if (equipments.size > 0)
+      OneItemPricing.calculate(equipments)
+    else
+      0
+  }
+
+  val equipments = new ListBuffer[Equipment]()
+}
 
 val cpu = new CPU("i7")
 val gcd = new GraphicCard("GTX 900")
 val mbd = new Motherboard("EVGA Z710 FTW")
-val bnd = new Bundle("PC Building")
-val pur = new Purchase(bnd)
-bnd addEquipment cpu
-bnd addEquipment gcd
-bnd addEquipment mbd
-println(pur.total)
+val pur = new Purchase
 
-pur.pricing = new ComboPricing
-println(pur.total)
-
-pur.pricing = new NormalPricing
-println(pur.total)
+println(pur.price)
+pur.addEquipment(cpu)
+println(pur.price)
+pur.addEquipment(gcd)
+println(pur.price)
+pur.addEquipment(mbd)
+println(pur.price)

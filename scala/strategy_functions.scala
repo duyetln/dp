@@ -4,20 +4,16 @@ abstract class Equipment(val name : String) {
   def price : Double
 }
 
-// Composite equipment
-class Bundle(name : String) extends Equipment(name) {
-  def price : Double = equipments.map(e => e.price).sum
-  def addEquipment(e : Equipment) {
-    if (!(equipments contains e))
-      equipments += e
-  }
+object OneItemPricing {
+  def calculate(l : ListBuffer[Equipment]) : Double = l(0).price
+}
 
-  def removeEquipment(e : Equipment) {
-    if (equipments contains e)
-      equipments -= e
-  }
+object TwoItemsPricing {
+  def calculate(l : ListBuffer[Equipment]) : Double = l.map(e => e.price).max
+}
 
-  protected val equipments = new ListBuffer[Equipment]()
+object BundlePricing {
+  def calculate(l : ListBuffer[Equipment]) : Double = l.map(e => e.price).sum
 }
 
 class GraphicCard(name : String) extends Equipment(name) {
@@ -32,29 +28,43 @@ class Motherboard(name : String) extends Equipment(name) {
   def price : Double = 150
 }
 
-class Purchase(val equipment : Equipment) {
-  var pricing : Double => Double = (p : Double) => p
-  def total = pricing(equipment.price)
+class Purchase {
+  def addEquipment(e : Equipment) {
+    if (!(equipments contains e))
+      equipments += e
+  }
+
+  def removeEquipment(e : Equipment) {
+    if (equipments contains e)
+      equipments -= e
+  }
+
+  def price : Double = {
+    if (equipments.size > 2)
+      bundlePricing(equipments)
+    else if (equipments.size > 1)
+      twoItemsPricing(equipments)
+    else if (equipments.size > 0)
+      oneItemPricing(equipments)
+    else
+      0
+  }
+
+  val equipments = new ListBuffer[Equipment]()
+  protected val oneItemPricing = (l : ListBuffer[Equipment]) => l(0).price
+  protected val twoItemsPricing = (l : ListBuffer[Equipment]) => l.map(e => e.price).max
+  protected val bundlePricing = (l : ListBuffer[Equipment]) => l.map(e => e.price).sum
 }
 
 val cpu = new CPU("i7")
 val gcd = new GraphicCard("GTX 900")
 val mbd = new Motherboard("EVGA Z710 FTW")
-val bnd = new Bundle("PC Building")
-val pur = new Purchase(bnd)
-bnd addEquipment cpu
-bnd addEquipment gcd
-bnd addEquipment mbd
-println(pur.total)
+val pur = new Purchase
 
-val comboPricing = (p : Double) => p * 0.8
-pur.pricing = comboPricing
-println(pur.total)
-
-val normalPricing = (p : Double) => p
-pur.pricing = normalPricing
-println(pur.total)
-
-val salePricing = (d : Double) => (p : Double) => p * d
-pur.pricing = salePricing(0.3) // curried function; 30% discount
-println(pur.total)
+println(pur.price)
+pur.addEquipment(cpu)
+println(pur.price)
+pur.addEquipment(gcd)
+println(pur.price)
+pur.addEquipment(mbd)
+println(pur.price)
