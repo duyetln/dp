@@ -51,6 +51,8 @@ class EntryField(Observer):
             self.setText()
             
 
+############################################
+
 ok = Button()
 cancel = Button()
 ok.attachObserver(EntryField(ok))
