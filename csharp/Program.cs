@@ -6,7 +6,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            int option = 3;
+            int option = 5;
 
             switch(option)
             {
@@ -129,12 +129,12 @@ namespace DesignPatterns
 
         private static void callMediator()
         {
-            Mediator.FontDialogDirector d = new Mediator.FontDialogDirector();
-            d.createWidget();
-            d.openFontList();
-            d.pressOk();
-            d.pressCancel();
+            Mediator.FrontDialogDirector d = new Mediator.FrontDialogDirector();
+            Mediator.Button ok = d.Ok;
+            Mediator.Button cancel = d.Cancel;
 
+            ok.Click();
+            cancel.Click();
 
             Console.Write("End");
             Console.ReadLine();
