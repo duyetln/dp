@@ -45,26 +45,26 @@ class Motherboard(Equipment):
         Equipment.__init__(self, name, 150.)
 
 
+###############################################
 
+cpu = CPU("i7")
+gcd = GraphicsCard("GTX 900")
+mbd = Motherboard("EVGA Z710 FTW")
+bnd = CompositeEquipment("PC Building")
+bnd.Add(cpu)
+bnd.Add(gcd)
+bnd.Add(mbd)
 
-# cpu = CPU("i7")
-# gcd = GraphicsCard("GTX 900")
-# mbd = Motherboard("EVGA Z710 FTW")
-# bnd = CompositeEquipment("PC Building")
-# bnd.Add(cpu)
-# bnd.Add(gcd)
-# bnd.Add(mbd)
+cpu2 = CPU("i9")
+gcd2 = GraphicsCard("GTX 800")
+mbd2 = Motherboard("EVGA Perl FTW")
+bnd2 = CompositeEquipment("PC Building 2")
+bnd2.Add(cpu2)
+bnd2.Add(gcd2)
+bnd2.Add(mbd2)
 
-# cpu2 = CPU("i9")
-# gcd2 = GraphicsCard("GTX 800")
-# mbd2 = Motherboard("EVGA Perl FTW")
-# bnd2 = CompositeEquipment("PC Building 2")
-# bnd2.Add(cpu2)
-# bnd2.Add(gcd2)
-# bnd2.Add(mbd2)
+superspecial = CompositeEquipment("Two For One Deal")
+superspecial.Add(bnd)
+superspecial.Add(bnd2)
 
-# superspecial = CompositeEquipment("Two For One Deal")
-# superspecial.Add(bnd)
-# superspecial.Add(bnd2)
-
-# print superspecial.getPrice()
+print superspecial.getPrice()
