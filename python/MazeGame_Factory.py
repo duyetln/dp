@@ -87,5 +87,6 @@ def createMaze(t="Basic"):
     m.setupWalls()
     return m
 
+#########################################
 
 hybrid_maze = createMaze("Hybrid")
