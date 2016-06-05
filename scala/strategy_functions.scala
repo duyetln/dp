@@ -4,18 +4,6 @@ abstract class Equipment(val name : String) {
   def price : Double
 }
 
-object OneItemPricing {
-  def calculate(l : ListBuffer[Equipment]) : Double = l(0).price
-}
-
-object TwoItemsPricing {
-  def calculate(l : ListBuffer[Equipment]) : Double = l.map(e => e.price).max
-}
-
-object BundlePricing {
-  def calculate(l : ListBuffer[Equipment]) : Double = l.map(e => e.price).sum
-}
-
 class GraphicCard(name : String) extends Equipment(name) {
   def price : Double = 45
 }
