@@ -74,6 +74,9 @@ class EnchantedMazeGame(MazeGame):
 class HybridMazeGame(HauntedMazeGame, EnchantedMazeGame):
     pass
 
+
+########################################################
+
 hmg = HauntedMazeGame()
 emg = EnchantedMazeGame()
 hymg = HybridMazeGame()
