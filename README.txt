@@ -10,7 +10,7 @@ C#:
 
 Java:
   - Each Java folder is self-contained and contains a client class.
-  - Simply run the client class to execute code.  
+  - Simply run the client class to execute code.
 
 Python:
   - Each Python file is a self-contained project, complete with all necessary class and method definitions
@@ -23,3 +23,6 @@ Scala:
   - Inside console, type ":load 'example.scala'" to run an example.
 
 Lisp:
+  - Change current directory to lisp directory.
+  - Open lisp console by running "lisp" command.
+  - Inside console, type "(load 'example.lisp)" to run an example.
