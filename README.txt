@@ -23,6 +23,8 @@ Scala:
   - Inside console, type ":load 'example.scala'" to run an example.
 
 Lisp:
+  - Install Common Lisp. This version is most compatibe with the examples.
   - Change current directory to lisp directory.
-  - Open lisp console by running "lisp" command.
-  - Inside console, type "(load 'example.lisp)" to run an example.
+  - Open lisp console by running "clisp" command.
+  - Inside REPL command line, type "(load 'example.lisp)" to load an example.
+  - Any function defined in the file can now be called.
