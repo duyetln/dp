@@ -2,7 +2,7 @@ How to Run the Examples/Misc. Notes
 
 C#:
   - The entire C# code is to be compiled and run as a single project in VS.
-  - The attached dgmal is an interactive codemap for teh entire project.
+  - The attached dgml is an interactive codemap for the entire project.
   - Factory_Simplified and Twin_Simplified are used for comparisons across languages.
   - Factory and Twin contain full implementations, and are not used for comparisons.
   - Twin of MazeGame is playable by setting option in Program.cs to 0.
